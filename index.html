@@ -183,6 +183,20 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
+    /* Teks Error di Bawah Input */
+    .error-text {
+      color: #f87171;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 6px;
+      display: block;
+    }
+
+    input.input-error {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3) !important;
+    }
+
     .info-box {
       background: rgba(255, 255, 255, 0.04);
       border-left: 3px solid #a855f7;
@@ -414,6 +428,7 @@
       <div class="form-group">
         <label for="email">Alamat Email</label>
         <input type="email" id="email" placeholder="contoh@gmail.com" required>
+        <span class="error-text hidden" id="emailError">mohon masukan email terlebih dahulu</span>
       </div>
       <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
     </div>
@@ -426,6 +441,7 @@
       <div class="form-group">
         <label for="rawLink">Raw Magic Link</label>
         <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
+        <span class="error-text hidden" id="linkError">mohon masukan link yang dikirim ke email mu</span>
       </div>
       <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
     </div>
@@ -485,6 +501,9 @@
 
     const emailInput = document.getElementById('email');
     const rawLinkInput = document.getElementById('rawLink');
+    const emailError = document.getElementById('emailError');
+    const linkError = document.getElementById('linkError');
+
     const btnSend = document.getElementById('btnSend');
     const btnProcess = document.getElementById('btnProcess');
     const btnHome = document.getElementById('btnHome');
@@ -498,6 +517,17 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalSubtitle = document.getElementById('modalSubtitle');
     const btnReset = document.getElementById('btnReset');
+
+    // Menghilangkan pesan error saat user mengetik
+    emailInput.addEventListener('input', () => {
+      emailInput.classList.remove('input-error');
+      emailError.classList.add('hidden');
+    });
+
+    rawLinkInput.addEventListener('input', () => {
+      rawLinkInput.classList.remove('input-error');
+      linkError.classList.add('hidden');
+    });
 
     // Fungsi Reset Form Kembali ke Halaman Awal
     function resetToHome() {
@@ -520,13 +550,18 @@
 
       emailInput.value = '';
       rawLinkInput.value = '';
+      emailInput.classList.remove('input-error');
+      emailError.classList.add('hidden');
+      rawLinkInput.classList.remove('input-error');
+      linkError.classList.add('hidden');
     }
 
     // STEP 1: Send Magic Link
     btnSend.addEventListener('click', async () => {
       const email = emailInput.value.trim();
       if (!email) {
-        alert('Harap masukkan email terlebih dahulu!');
+        emailInput.classList.add('input-error');
+        emailError.classList.remove('hidden');
         return;
       }
 
@@ -552,12 +587,26 @@
 
           stepDescription.innerText = 'Langkah 2: Verifikasi Magic Link dari Email';
         } else {
-          alert(data.message || 'Gagal mengirim magic link!');
+          modalIconBox.className = 'icon-box error';
+          iconSuccess.classList.add('hidden');
+          iconError.classList.remove('hidden');
+          badgeStatus.classList.add('hidden');
+          modalTitle.innerText = 'Proses Gagal';
+          modalSubtitle.innerText = data.message || 'Gagal mengirim magic link!';
+          modalLog.classList.remove('hidden');
+          
           btnSend.disabled = false;
           btnSend.innerText = 'Kirim Magic Link';
         }
       } catch (err) {
-        alert(`Gagal terhubung ke API: ${err.message}`);
+        modalIconBox.className = 'icon-box error';
+        iconSuccess.classList.add('hidden');
+        iconError.classList.remove('hidden');
+        badgeStatus.classList.add('hidden');
+        modalTitle.innerText = 'Proses Gagal';
+        modalSubtitle.innerText = `Gagal terhubung ke API: ${err.message}`;
+        modalLog.classList.remove('hidden');
+
         btnSend.disabled = false;
         btnSend.innerText = 'Kirim Magic Link';
       }
@@ -569,7 +618,8 @@
       const rawLink = rawLinkInput.value.trim();
 
       if (!rawLink) {
-        alert('Raw Magic Link wajib ditempel!');
+        rawLinkInput.classList.add('input-error');
+        linkError.classList.remove('hidden');
         return;
       }
 
