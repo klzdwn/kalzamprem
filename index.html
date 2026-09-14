@@ -3,167 +3,354 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alight Motion Tools</title>
+  <title>Alight Motion Premium Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
+
     body {
-      background-color: #0f172a;
-      color: #f8fafc;
+      min-height: 100vh;
+      background: #090d16;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       padding: 20px;
+      overflow-x: hidden;
+      position: relative;
     }
-    .card {
-      background-color: #1e293b;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+
+    /* Efek Bola Cahaya di Belakang Kaca */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      animation: float 10s infinite alternate ease-in-out;
+    }
+
+    .blob-1 {
+      width: 300px;
+      height: 300px;
+      background: rgba(147, 51, 234, 0.45);
+      top: 10%;
+      left: 15%;
+    }
+
+    .blob-2 {
+      width: 250px;
+      height: 250px;
+      background: rgba(59, 130, 246, 0.45);
+      bottom: 15%;
+      right: 15%;
+    }
+
+    .blob-3 {
+      width: 200px;
+      height: 200px;
+      background: rgba(236, 72, 153, 0.35);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-30px) scale(1.1); }
+    }
+
+    /* Card Glassmorphism */
+    .glass-card {
+      position: relative;
+      z-index: 1;
       width: 100%;
-      max-width: 400px;
+      max-width: 440px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
-    h2 {
-      margin-bottom: 20px;
+
+    .header {
       text-align: center;
-      color: #38bdf8;
+      margin-bottom: 28px;
     }
+
+    .header h1 {
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
+
     label {
       display: block;
-      margin-bottom: 5px;
-      font-size: 14px;
-      color: #94a3b8;
+      color: #cbd5e1;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    input[type="text"], input[type="email"] {
+
+    input {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: 1px solid #334155;
-      background-color: #0f172a;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
       color: #fff;
       font-size: 14px;
       outline: none;
+      transition: all 0.3s ease;
     }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
     input:focus {
-      border-color: #38bdf8;
+      border-color: rgba(168, 85, 247, 0.8);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+      background: rgba(255, 255, 255, 0.09);
     }
-    button {
+
+    .btn {
       width: 100%;
-      padding: 12px;
-      background-color: #0284c7;
-      color: #fff;
+      padding: 14px;
       border: none;
-      border-radius: 6px;
-      font-weight: bold;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
       cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 5px;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
     }
-    button:hover {
-      background-color: #0369a1;
+
+    .btn-primary {
+      background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
     }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      margin-top: 6px;
+    }
+
+    .btn-secondary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 22px 0;
+    }
+
+    /* Console Logs */
     .log-box {
-      margin-top: 20px;
-      background: #090d16;
-      border: 1px solid #334155;
-      border-radius: 6px;
-      padding: 10px;
+      margin-top: 22px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px;
       font-family: monospace;
       font-size: 12px;
-      max-height: 150px;
+      height: 130px;
       overflow-y: auto;
+      color: #38bdf8;
+    }
+
+    .log-entry {
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+
+    .log-entry.error {
+      color: #f87171;
+    }
+
+    .log-entry.success {
       color: #4ade80;
+    }
+
+    /* Scrollbar Styling */
+    .log-box::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .log-box::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>Alight Tools</h2>
-    
+  <!-- Element Cahaya Background -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Kartu Utama -->
+  <div class="glass-card">
+    <div class="header">
+      <h1>Alight Premium Generator</h1>
+      <p>Masukan email dan verifikasi magic link kamu</p>
+    </div>
+
+    <!-- Step 1 -->
     <div class="form-group">
-      <label for="email">Email Account</label>
-      <input type="email" id="email" placeholder="masukkan email anda...">
+      <label for="email">1. Alamat Email</label>
+      <input type="email" id="email" placeholder="contoh@gmail.com" required>
     </div>
+    <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
 
-    <button id="btnSend">1. Kirim Magic Link</button>
+    <div class="divider"></div>
 
-    <div class="form-group" style="margin-top: 15px;">
-      <label for="magiclink">Raw Magic Link</label>
-      <input type="text" id="magiclink" placeholder="tempel magic link di sini...">
+    <!-- Step 2 -->
+    <div class="form-group">
+      <label for="rawLink">2. Raw Magic Link</label>
+      <input type="text" id="rawLink" placeholder="Tempel magic link dari email...">
     </div>
+    <button id="btnProcess" class="btn btn-secondary">Proses Premium</button>
 
-    <button id="btnProcess">2. Proses Akun</button>
-
-    <div class="log-box" id="logs">Status log akan tampil di sini...</div>
+    <!-- Output Status Log -->
+    <div class="log-box" id="logBox">
+      <div class="log-entry">> Siap diproses...</div>
+    </div>
   </div>
 
   <script>
     const API_URL = 'https://anita-studio.netlify.app/.netlify/functions/amprem';
-    const logs = document.getElementById('logs');
 
-    function log(msg) {
-      logs.innerHTML += `<div>> ${msg}</div>`;
-      logs.scrollTop = logs.scrollHeight;
+    const emailInput = document.getElementById('email');
+    const rawLinkInput = document.getElementById('rawLink');
+    const btnSend = document.getElementById('btnSend');
+    const btnProcess = document.getElementById('btnProcess');
+    const logBox = document.getElementById('logBox');
+
+    function log(message, type = 'normal') {
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.innerText = `> ${message}`;
+      logBox.appendChild(entry);
+      logBox.scrollTop = logBox.scrollHeight;
     }
 
-    document.getElementById('btnSend').addEventListener('click', async () => {
-      const email = document.getElementById('email').value;
-      if (!email) return alert('Email wajib diisi!');
+    // Step 1: Kirim Magic Link
+    btnSend.addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      if (!email) {
+        log('Harap masukkan email terlebih dahulu!', 'error');
+        return;
+      }
 
-      log('Sending Magic Link...');
+      btnSend.disabled = true;
+      log('Mengirim Magic Link ke email...');
+
       try {
-        const res = await fetch(API_URL, {
+        const response = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'send-magiclink', email })
         });
-        const data = await res.json();
-        log(JSON.stringify(data));
+
+        const data = await response.json();
+        log(JSON.stringify(data), data.success ? 'success' : 'error');
       } catch (err) {
-        log('Error: ' + err.message);
+        log(`Gagal terhubung ke API: ${err.message}`, 'error');
+      } finally {
+        btnSend.disabled = false;
       }
     });
 
-    document.getElementById('btnProcess').addEventListener('click', async () => {
-      const email = document.getElementById('email').value;
-      const rawLink = document.getElementById('magiclink').value;
-      if (!email || !rawLink) return alert('Email dan Magic Link wajib diisi!');
+    // Step 2: Verifikasi & Apply Premium
+    btnProcess.addEventListener('click', async () => {
+      const email = emailInput.value.trim();
+      const rawLink = rawLinkInput.value.trim();
 
-      log('Verifying Link...');
+      if (!email || !rawLink) {
+        log('Email dan Raw Magic Link wajib diisi!', 'error');
+        return;
+      }
+
+      btnProcess.disabled = true;
+      log('Memverifikasi tautan...');
+
       try {
+        // 1. Verify Account
         const verifyRes = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'verify-account', email, rawLink })
         });
+
         const verifyData = await verifyRes.json();
-        log(JSON.stringify(verifyData));
+        log(`Verifikasi: ${JSON.stringify(verifyData)}`);
+
+        if (!verifyData.success) {
+          throw new Error(verifyData.message || 'Verifikasi gagal');
+        }
 
         const idToken = verifyData.idToken || verifyData.profile?.idToken;
-        if (!idToken) throw new Error('idToken tidak ditemukan!');
+        if (!idToken) {
+          throw new Error('idToken tidak ditemukan dari hasil verifikasi');
+        }
 
-        log('Applying Premium...');
+        // 2. Apply Premium
+        log('Mengaktifkan status premium...');
         const premRes = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'apply-premium', email, idToken })
         });
+
         const premData = await premRes.json();
-        log(JSON.stringify(premData));
+        log(`Hasil: ${JSON.stringify(premData)}`, premData.success ? 'success' : 'error');
+
       } catch (err) {
-        log('Error: ' + err.message);
+        log(`Error: ${err.message}`, 'error');
+      } finally {
+        btnProcess.disabled = false;
       }
     });
   </script>
-
 </body>
 </html>
