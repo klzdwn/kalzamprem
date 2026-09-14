@@ -15,7 +15,7 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at 50% 20%, #1a1c23 0%, #08090c 60%, #000000 100%);
+      background: #090d16;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,27 +24,27 @@
       position: relative;
     }
 
-    /* Background Glow */
+    /* Efek Background Glow */
     .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(90px);
+      filter: blur(80px);
       z-index: 0;
       animation: float 10s infinite alternate ease-in-out;
     }
 
     .blob-1 {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+      width: 300px;
+      height: 300px;
+      background: rgba(147, 51, 234, 0.45);
       top: 10%;
       left: 15%;
     }
 
     .blob-2 {
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(160, 160, 175, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+      width: 250px;
+      height: 250px;
+      background: rgba(59, 130, 246, 0.45);
       bottom: 15%;
       right: 15%;
     }
@@ -60,13 +60,13 @@
       z-index: 1;
       width: 100%;
       max-width: 440px;
-      background: linear-gradient(145deg, rgba(30, 32, 40, 0.7) 0%, rgba(12, 13, 18, 0.8) 100%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 24px;
       padding: 32px 28px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
     .header {
@@ -75,12 +75,10 @@
     }
 
     .header h1 {
+      color: #ffffff;
       font-size: 24px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
 
     .header p {
@@ -104,7 +102,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+      background: rgba(255, 255, 255, 0.1);
       z-index: 0;
       transform: translateY(-50%);
     }
@@ -113,9 +111,9 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: #0f1117;
+      background: #1e293b;
       border: 2px solid rgba(255, 255, 255, 0.2);
-      color: #71717a;
+      color: #94a3b8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -123,84 +121,45 @@
       font-weight: 700;
       position: relative;
       z-index: 1;
-      transition: all 0.3s ease;
     }
 
     .step-circle.active {
-      background: linear-gradient(135deg, #ffffff 0%, #d4d4d8 100%);
-      border-color: #ffffff;
-      color: #000000;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+      background: #a855f7;
+      border-color: #c084fc;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
     }
 
-    .form-step {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .form-step.active-step {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .form-group { margin-bottom: 8px; }
+    .form-group { margin-bottom: 18px; }
 
     label {
       display: block;
-      color: #e4e4e7;
+      color: #cbd5e1;
       font-size: 12px;
       font-weight: 600;
       margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     input {
       width: 100%;
       padding: 14px 16px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
       color: #fff;
       font-size: 14px;
       outline: none;
-      transition: all 0.2s;
-    }
-
-    input:focus {
-      border-color: #ffffff;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
-    }
-
-    .error-msg {
-      color: #f87171;
-      font-size: 12px;
-      font-weight: 500;
-      margin-bottom: 12px;
-      display: none;
-      align-items: center;
-      gap: 6px;
     }
 
     .info-box {
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-      border-left: 3px solid #ffffff;
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 3px solid #a855f7;
       padding: 12px;
       border-radius: 8px;
       font-size: 12px;
-      color: #a1a1aa;
+      color: #cbd5e1;
       margin-bottom: 18px;
-    }
-
-    .user-email-badge {
-      display: inline-block;
-      color: #ffffff;
-      font-weight: 700;
-      word-break: break-all;
     }
 
     .btn {
@@ -209,31 +168,11 @@
       border: none;
       border-radius: 12px;
       font-size: 14px;
-      font-weight: 700;
-      color: #050505;
+      font-weight: 600;
+      color: #fff;
       cursor: pointer;
-      background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 50%, #a1a1aa 100%);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
-      transition: all 0.2s ease;
-      margin-top: 8px;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      box-shadow: none;
-      margin-top: 8px;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-2px);
+      background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
     }
 
     /* OVERLAY MODAL */
@@ -243,7 +182,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(4, 7, 13, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 99;
@@ -255,14 +194,15 @@
 
     .hidden { display: none !important; }
 
+    /* POPUP MUSIC PLAYER (SPOTIFY EMBED) */
     .music-modal-card {
-      background: linear-gradient(160deg, #18181b 0%, #09090b 100%);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #111622;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 28px;
       width: 100%;
       max-width: 380px;
       padding: 20px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
       position: relative;
       animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
@@ -278,7 +218,7 @@
       right: 14px;
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      color: #a1a1aa;
+      color: #94a3b8;
       width: 30px;
       height: 30px;
       border-radius: 50%;
@@ -293,7 +233,7 @@
     .now-playing-tag {
       font-size: 11px;
       font-weight: 700;
-      color: #ffffff;
+      color: #1ed760;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
@@ -305,11 +245,11 @@
       display: inline-block;
       width: 6px;
       height: 6px;
-      background: #ffffff;
+      background: #1ed760;
       border-radius: 50%;
     }
 
-    /* BOTTOM NAVBAR */
+    /* BOTTOM NAVBAR DI TENGAH */
     .bottom-nav {
       position: fixed;
       bottom: 20px;
@@ -319,13 +259,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(30, 32, 40, 0.85) 0%, rgba(12, 13, 18, 0.9) 100%);
+      background: rgba(18, 24, 38, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 50px;
       padding: 6px 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .nav-item {
@@ -334,7 +274,7 @@
       align-items: center;
       padding: 8px 14px;
       border-radius: 20px;
-      color: #a1a1aa;
+      color: #94a3b8;
       background: transparent;
       border: none;
       font-size: 10px;
@@ -342,10 +282,7 @@
       cursor: pointer;
       text-decoration: none;
       gap: 4px;
-      transition: color 0.2s;
     }
-
-    .nav-item:hover { color: #ffffff; }
 
     .nav-item svg {
       width: 18px;
@@ -355,25 +292,26 @@
       stroke-width: 2;
     }
 
+    /* Tombol Home Bulat Glow di Tengah */
     .nav-item-center {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #ffffff 0%, #d4d4d8 100%);
-      color: #000000;
+      background: #ffffff;
+      color: #090d16;
       display: flex;
       align-items: center;
       justify-content: center;
       border: none;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
       margin: 0 6px;
     }
 
     .nav-item-center svg {
       width: 20px;
       height: 20px;
-      stroke: #000000;
+      stroke: #090d16;
       fill: none;
       stroke-width: 2.2;
     }
@@ -387,57 +325,28 @@
   <div class="glass-card">
     <div class="header">
       <h1>KALZ AM PREM</h1>
-      <p id="stepSubtitle">Langkah 1: Masukkan email akun Alight Motion</p>
+      <p>Langkah 1: Masukkan email akun Alight Motion</p>
     </div>
 
-    <!-- TRACKER STEP (1, 2, 3) -->
     <div class="step-tracker">
-      <div class="step-circle active" id="circleStep1">1</div>
-      <div class="step-circle" id="circleStep2">2</div>
-      <div class="step-circle" id="circleStep3">3</div>
+      <div class="step-circle active">1</div>
+      <div class="step-circle">2</div>
+      <div class="step-circle">3</div>
     </div>
 
-    <!-- STEP 1: MASUKKAN EMAIL -->
-    <div class="form-step active-step" id="step1">
+    <div>
       <div class="info-box">
         Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
       </div>
-
       <div class="form-group">
         <label for="email">Alamat Email</label>
         <input type="email" id="email" placeholder="contoh@gmail.com">
       </div>
-      
-      <div class="error-msg" id="errorMsg">
-        ⚠️ mohon masukan email terlebih dahulu
-      </div>
-
-      <button class="btn" id="btnStep1">Kirim Magic Link</button>
-    </div>
-
-    <!-- STEP 2: VERIFIKASI / CEK EMAIL -->
-    <div class="form-step" id="step2">
-      <div class="info-box">
-        Magic Link telah dikirim ke <span class="user-email-badge" id="displayEmail">email@domain.com</span>.<br><br>
-        Silakan buka kotak masuk email kamu dan klik/salin link verifikasi yang dikirimkan oleh Alight Motion.
-      </div>
-
-      <button class="btn" id="btnStep2">Saya Sudah Verifikasi / Lanjut</button>
-      <button class="btn btn-secondary" id="btnBackToStep1">Ganti Email</button>
-    </div>
-
-    <!-- STEP 3: SELESAI -->
-    <div class="form-step" id="step3">
-      <div class="info-box" style="border-left-color: #4ade80;">
-        🎉 <strong>Proses Berhasil!</strong><br><br>
-        Akun Alight Motion kamu telah terhubung dan status Premium siap digunakan. Enjoy editing!
-      </div>
-
-      <button class="btn" id="btnReset">Kembali ke Awal</button>
+      <button class="btn">Kirim Magic Link</button>
     </div>
   </div>
 
-  <!-- POPUP MUSIC PLAYER -->
+  <!-- POPUP MUSIC PLAYER (SPOTIFY PLAYLIST RESMI) -->
   <div class="modal-overlay hidden" id="modalMusic">
     <div class="music-modal-card">
       <button class="close-btn" id="btnCloseMusic">&times;</button>
@@ -446,6 +355,7 @@
         <span></span> SPOTIFY PLAYLIST
       </div>
 
+      <!-- SPOTIFY EMBED PLAYER -->
       <iframe 
         id="spotifyPlayer"
         style="border-radius:16px;" 
@@ -460,13 +370,14 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAVBAR -->
+  <!-- BOTTOM NAVBAR (POSISI HOME DI TENGAH) -->
   <div class="bottom-nav">
-    <a href="https://wa.me/6287863683554" target="_blank" class="nav-item">
+    <a href="https://wa.me/6281234567890" target="_blank" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 21l1.9-5.7a8.5 8.5 0 113.8 3.8z"/></svg>
       <span>WHATSAPP</span>
     </a>
 
+    <!-- TOMBOL HOME DI TENGAH -->
     <button class="nav-item-center" id="navHome">
       <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     </button>
@@ -478,103 +389,16 @@
   </div>
 
   <script>
-    // Elemen Navigasi & Form
     const navMusic = document.getElementById('navMusic');
     const modalMusic = document.getElementById('modalMusic');
     const btnCloseMusic = document.getElementById('btnCloseMusic');
 
-    const emailInput = document.getElementById('email');
-    const errorMsg = document.getElementById('errorMsg');
-    const displayEmail = document.getElementById('displayEmail');
-    const stepSubtitle = document.getElementById('stepSubtitle');
-
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
-
-    const circle1 = document.getElementById('circleStep1');
-    const circle2 = document.getElementById('circleStep2');
-    const circle3 = document.getElementById('circleStep3');
-
-    const btnStep1 = document.getElementById('btnStep1');
-    const btnStep2 = document.getElementById('btnStep2');
-    const btnBackToStep1 = document.getElementById('btnBackToStep1');
-    const btnReset = document.getElementById('btnReset');
-    const navHome = document.getElementById('navHome');
-
-    function goToStep(stepNumber) {
-      step1.classList.remove('active-step');
-      step2.classList.remove('active-step');
-      step3.classList.remove('active-step');
-
-      circle1.classList.remove('active');
-      circle2.classList.remove('active');
-      circle3.classList.remove('active');
-
-      if (stepNumber === 1) {
-        step1.classList.add('active-step');
-        circle1.classList.add('active');
-        stepSubtitle.textContent = "Langkah 1: Masukkan email akun Alight Motion";
-      } else if (stepNumber === 2) {
-        step2.classList.add('active-step');
-        circle1.classList.add('active');
-        circle2.classList.add('active');
-        stepSubtitle.textContent = "Langkah 2: Buka email & klik Magic Link";
-      } else if (stepNumber === 3) {
-        step3.classList.add('active-step');
-        circle1.classList.add('active');
-        circle2.classList.add('active');
-        circle3.classList.add('active');
-        stepSubtitle.textContent = "Langkah 3: Aktivasi Selesai";
-      }
-    }
-
-    // Klik Kirim Magic Link
-    btnStep1.addEventListener('click', () => {
-      const value = emailInput.value.trim();
-      if (value === '') {
-        errorMsg.style.display = 'flex';
-        emailInput.style.borderColor = '#f87171';
-      } else {
-        errorMsg.style.display = 'none';
-        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        displayEmail.textContent = value;
-        goToStep(2);
-      }
-    });
-
-    emailInput.addEventListener('input', () => {
-      if (emailInput.value.trim() !== '') {
-        errorMsg.style.display = 'none';
-        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-      }
-    });
-
-    // Pindah Step 2 -> Step 3
-    btnStep2.addEventListener('click', () => {
-      goToStep(3);
-    });
-
-    // Pindah Kembali Step 2 -> Step 1
-    btnBackToStep1.addEventListener('click', () => {
-      goToStep(1);
-    });
-
-    // Reset ke Step 1
-    btnReset.addEventListener('click', () => {
-      emailInput.value = '';
-      goToStep(1);
-    });
-
-    navHome.addEventListener('click', () => {
-      goToStep(1);
-    });
-
-    // Popup Spotify
+    // Buka Popup Spotify
     navMusic.addEventListener('click', () => {
       modalMusic.classList.remove('hidden');
     });
 
+    // Tutup Popup Spotify
     btnCloseMusic.addEventListener('click', () => {
       modalMusic.classList.add('hidden');
     });
