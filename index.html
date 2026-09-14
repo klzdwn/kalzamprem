@@ -15,7 +15,6 @@
 
     body {
       min-height: 100vh;
-      /* Background Gradien Radial Dark Chrome */
       background: radial-gradient(circle at 50% 20%, #1a1c23 0%, #08090c 60%, #000000 100%);
       display: flex;
       justify-content: center;
@@ -25,7 +24,7 @@
       position: relative;
     }
 
-    /* Background Glow Gradien Monochrome */
+    /* Background Glow */
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -55,7 +54,7 @@
       100% { transform: translateY(-30px) scale(1.1); }
     }
 
-    /* Card Utama dengan Border & Background Gradien Dark Glass */
+    /* Card Utama */
     .glass-card {
       position: relative;
       z-index: 1;
@@ -75,7 +74,6 @@
       margin-bottom: 24px;
     }
 
-    /* Judul Gradien Silver Metallic */
     .header h1 {
       font-size: 24px;
       font-weight: 800;
@@ -91,7 +89,7 @@
       margin-top: 6px;
     }
 
-    /* Step Tracker dengan Accent Gradien */
+    /* Step Tracker */
     .step-tracker {
       display: flex;
       justify-content: space-between;
@@ -163,15 +161,35 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
     }
 
-    /* Pesan Error */
+    /* Pesan Error & Sukses dalam Card */
     .error-msg {
       color: #f87171;
       font-size: 12px;
       font-weight: 500;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       display: none;
       align-items: center;
       gap: 6px;
+    }
+
+    .success-msg {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .info-box {
@@ -184,7 +202,6 @@
       margin-bottom: 18px;
     }
 
-    /* Tombol Utama Gradien Silver-White */
     .btn {
       width: 100%;
       padding: 14px;
@@ -205,7 +222,7 @@
       box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
     }
 
-    /* OVERLAY MODAL */
+    /* OVERLAY MODAL MUSIK */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -224,7 +241,6 @@
 
     .hidden { display: none !important; }
 
-    /* POPUP MUSIC PLAYER */
     .music-modal-card {
       background: linear-gradient(160deg, #18181b 0%, #09090b 100%);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -279,7 +295,7 @@
       border-radius: 50%;
     }
 
-    /* BOTTOM NAVBAR GRADIENT */
+    /* BOTTOM NAVBAR */
     .bottom-nav {
       position: fixed;
       bottom: 20px;
@@ -315,9 +331,7 @@
       transition: color 0.2s;
     }
 
-    .nav-item:hover {
-      color: #ffffff;
-    }
+    .nav-item:hover { color: #ffffff; }
 
     .nav-item svg {
       width: 18px;
@@ -327,7 +341,6 @@
       stroke-width: 2;
     }
 
-    /* Tombol Home Bulat Gradien */
     .nav-item-center {
       width: 44px;
       height: 44px;
@@ -373,14 +386,19 @@
       <div class="info-box">
         Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
       </div>
+
       <div class="form-group">
         <label for="email">Alamat Email</label>
         <input type="email" id="email" placeholder="contoh@gmail.com">
       </div>
       
-      <!-- NOTIFIKASI ERROR EMAIL KOSONG -->
+      <!-- PESAN ERROR & SUKSES ELEGANKU -->
       <div class="error-msg" id="errorMsg">
         ⚠️ mohon masukan email terlebih dahulu
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        ✓ Magic Link berhasil dikirim ke email kamu!
       </div>
 
       <button class="btn" id="btnSend">Kirim Magic Link</button>
@@ -410,7 +428,7 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAVBAR (NO WA 087863683554) -->
+  <!-- BOTTOM NAVBAR -->
   <div class="bottom-nav">
     <a href="https://wa.me/6287863683554" target="_blank" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 21l1.9-5.7a8.5 8.5 0 113.8 3.8z"/></svg>
@@ -434,28 +452,34 @@
     const btnSend = document.getElementById('btnSend');
     const emailInput = document.getElementById('email');
     const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
 
-    // Validasi Email Kosong
+    // Validasi Tanpa Alert Bawaan Browser
     btnSend.addEventListener('click', () => {
-      if (emailInput.value.trim() === '') {
+      const emailValue = emailInput.value.trim();
+
+      if (emailValue === '') {
+        successMsg.style.display = 'none';
         errorMsg.style.display = 'flex';
         emailInput.style.borderColor = '#f87171';
       } else {
         errorMsg.style.display = 'none';
         emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        alert('Magic Link berhasil dikirim ke ' + emailInput.value);
+        
+        // Tampilkan pesan sukses di dalam card
+        successMsg.textContent = '✓ Magic Link berhasil dikirim ke ' + emailValue;
+        successMsg.style.display = 'flex';
       }
     });
 
-    // Reset error pas user mulai ngetik
+    // Reset notifikasi pas ngetik
     emailInput.addEventListener('input', () => {
-      if (emailInput.value.trim() !== '') {
-        errorMsg.style.display = 'none';
-        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-      }
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+      emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
     });
 
-    // Popup Spotify
+    // Toggle Music Popup
     navMusic.addEventListener('click', () => {
       modalMusic.classList.remove('hidden');
     });
