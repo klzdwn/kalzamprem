@@ -20,11 +20,11 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      overflow-x: hidden;
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* Efek Bola Cahaya Background Hitam-Putih */
+    /* Background Glow */
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -47,15 +47,6 @@
       background: radial-gradient(circle, rgba(160, 160, 175, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
       bottom: 15%;
       right: 15%;
-    }
-
-    .blob-3 {
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
     }
 
     @keyframes float {
@@ -98,7 +89,7 @@
       margin-top: 6px;
     }
 
-    /* Step Indicator Bar */
+    /* Step Tracker */
     .step-tracker {
       display: flex;
       justify-content: space-between;
@@ -142,16 +133,21 @@
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
     }
 
-    .step-circle.completed {
-      background: linear-gradient(135deg, #a1a1aa 0%, #52525b 100%);
-      border-color: #d4d4d8;
-      color: #ffffff;
+    .form-step {
+      display: none;
+      animation: fadeIn 0.3s ease;
     }
 
-    /* Form UI */
-    .form-group {
-      margin-bottom: 18px;
+    .form-step.active-step {
+      display: block;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group { margin-bottom: 8px; }
 
     label {
       display: block;
@@ -172,41 +168,22 @@
       color: #fff;
       font-size: 14px;
       outline: none;
-      transition: all 0.3s ease;
-    }
-
-    input::placeholder {
-      color: #71717a;
+      transition: all 0.2s;
     }
 
     input:focus {
       border-color: #ffffff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
     }
 
-    /* Mencegah background input berubah putih saat terisi / autofill */
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover, 
-    input:-webkit-autofill:focus, 
-    input:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 1000px #15171e inset !important;
-      -webkit-text-fill-color: #ffffff !important;
-      transition: background-color 5000s ease-in-out 0s;
-    }
-
-    /* Teks Error di Bawah Kolom Input */
-    .error-text {
+    .error-msg {
       color: #f87171;
       font-size: 12px;
-      font-weight: 600;
-      margin-top: 6px;
-      display: block;
-    }
-
-    input.input-error {
-      border-color: #ef4444 !important;
-      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3) !important;
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: none;
+      align-items: center;
+      gap: 6px;
     }
 
     .info-box {
@@ -220,6 +197,13 @@
       line-height: 1.5;
     }
 
+    .user-email-badge {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 700;
+      word-break: break-all;
+    }
+
     .btn {
       width: 100%;
       padding: 14px;
@@ -229,187 +213,28 @@
       font-weight: 700;
       color: #050505;
       cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
       background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 50%, #a1a1aa 100%);
       box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
     }
 
     .btn-secondary {
-      background: linear-gradient(135deg, #d4d4d8 0%, #a1a1aa 50%, #71717a 100%);
-      box-shadow: 0 6px 20px rgba(212, 212, 216, 0.2);
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #ffffff 0%, #d4d4d8 100%);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-    }
-
-    .btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* Loading Spinner */
-    .loading-state {
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-top: 4px solid #ffffff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 16px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loading-text {
-      color: #e4e4e7;
-      font-size: 14px;
-      font-weight: 600;
-      animation: pulse 1.5s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-
-    /* POPUP MODAL MODERN */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 99;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal-card {
-      background: linear-gradient(160deg, #18181b 0%, #09090b 100%);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 28px;
-      width: 100%;
-      max-width: 380px;
-      padding: 32px 24px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
-      position: relative;
-      animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      text-align: center;
-    }
-
-    @keyframes modalPop {
-      from { transform: scale(0.85) translateY(20px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #a1a1aa;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      font-size: 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: none;
+      margin-top: 8px;
     }
 
-    .icon-box {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px auto;
-      position: relative;
-    }
-
-    .icon-box.success {
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      color: #ffffff;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    }
-
-    .icon-box.error {
-      background: rgba(248, 113, 113, 0.12);
-      border: 2px solid rgba(248, 113, 113, 0.4);
-      color: #f87171;
-      box-shadow: 0 0 30px rgba(239, 68, 68, 0.25);
-    }
-
-    .icon-box svg {
-      width: 36px;
-      height: 36px;
-    }
-
-    .modal-title {
-      color: #ffffff;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.3px;
-    }
-
-    .modal-subtitle {
-      color: #a1a1aa;
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
-
-    .badge-status {
-      display: inline-block;
-      padding: 6px 16px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      border-radius: 20px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -417,293 +242,142 @@
 
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
 
   <div class="glass-card">
     <div class="header">
       <h1>KALZ AM PREM</h1>
-      <p id="stepDescription">Langkah 1: Masukkan email akun Alight Motion</p>
+      <p id="stepSubtitle">Langkah 1: Masukkan email akun Alight Motion</p>
     </div>
 
-    <!-- Tracker Bulatan Angka -->
+    <!-- TRACKER STEP (1, 2, 3) -->
     <div class="step-tracker">
-      <div class="step-circle active" id="circle1">1</div>
-      <div class="step-circle" id="circle2">2</div>
-      <div class="step-circle" id="circle3">3</div>
+      <div class="step-circle active" id="circleStep1">1</div>
+      <div class="step-circle" id="circleStep2">2</div>
+      <div class="step-circle" id="circleStep3">3</div>
     </div>
 
-    <!-- PAGE STEP 1: EMAIL -->
-    <div id="step1">
+    <!-- STEP 1: MASUKKAN EMAIL -->
+    <div class="form-step active-step" id="step1">
       <div class="info-box">
         Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
       </div>
+
       <div class="form-group">
         <label for="email">Alamat Email</label>
-        <input type="email" id="email" placeholder="contoh@gmail.com" required>
-        <span class="error-text hidden" id="emailError">mohon masukan email terlebih dahulu</span>
+        <input type="email" id="email" placeholder="contoh@gmail.com">
       </div>
-      <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
+      
+      <div class="error-msg" id="errorMsg">
+        ⚠️ mohon masukan email terlebih dahulu
+      </div>
+
+      <button class="btn" id="btnStep1">Kirim Magic Link</button>
     </div>
 
-    <!-- PAGE STEP 2: RAW MAGIC LINK -->
-    <div id="step2" class="hidden">
+    <!-- STEP 2: VERIFIKASI / CEK EMAIL -->
+    <div class="form-step" id="step2">
       <div class="info-box">
-        Buka email kamu, tahan tombol dari Alight Motion, salin tautannya, lalu tempelkan di bawah ini.
+        Magic Link telah dikirim ke <span class="user-email-badge" id="displayEmail">email@domain.com</span>.<br><br>
+        Silakan buka kotak masuk email kamu dan klik/salin link verifikasi yang dikirimkan oleh Alight Motion.
       </div>
-      <div class="form-group">
-        <label for="rawLink">Raw Magic Link</label>
-        <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
-        <span class="error-text hidden" id="linkError">mohon masukan link yang dikirim ke email mu</span>
-      </div>
-      <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
+
+      <button class="btn" id="btnStep2">Saya Sudah Verifikasi / Lanjut</button>
+      <button class="btn btn-secondary" id="btnBackToStep1">Ganti Email</button>
     </div>
 
-    <!-- PAGE STEP 3: TOMBOL KEMBALI DI CARD -->
-    <div id="stepFinish" class="hidden">
-      <div class="info-box" style="text-align: center; border-left: none; border-top: 3px solid #ffffff;">
-        Proses telah selesai. Klik tombol di bawah untuk kembali ke tampilan awal.
-      </div>
-      <button id="btnHome" class="btn btn-success">Kembali ke Halaman Awal</button>
-    </div>
-
-    <!-- PAGE STEP LOADING BERGERAK -->
-    <div id="stepLoading" class="loading-state hidden">
-      <div class="spinner"></div>
-      <div class="loading-text" id="loadingText">Memulai verifikasi akun...</div>
-    </div>
-  </div>
-
-  <!-- POPUP RESULT MODERN -->
-  <div class="modal-overlay hidden" id="modalLog">
-    <div class="modal-card">
-      <button class="close-btn" id="btnCloseModal">&times;</button>
-      
-      <!-- Icon Box -->
-      <div class="icon-box success" id="modalIconBox">
-        <svg id="iconSuccess" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
-        </svg>
-        <svg id="iconError" class="hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+    <!-- STEP 3: SELESAI -->
+    <div class="form-step" id="step3">
+      <div class="info-box" style="border-left-color: #4ade80;">
+        🎉 <strong>Proses Berhasil!</strong><br><br>
+        Akun Alight Motion kamu telah terhubung dan status Premium siap digunakan. Enjoy editing!
       </div>
 
-      <div id="badgeStatus" class="badge-status">PREMIUM ACTIVE</div>
-      
-      <h3 class="modal-title" id="modalTitle">Aktivasi Berhasil!</h3>
-      <p class="modal-subtitle" id="modalSubtitle">Fitur Alight Motion Premium kamu sudah aktif dan siap digunakan secara penuh.</p>
-      
-      <button id="btnReset" class="btn btn-primary">Kembali ke Halaman Awal</button>
+      <button class="btn" id="btnReset">Kembali ke Awal</button>
     </div>
   </div>
 
   <script>
-    const API_URL = 'https://anita-studio.netlify.app/.netlify/functions/amprem';
+    const emailInput = document.getElementById('email');
+    const errorMsg = document.getElementById('errorMsg');
+    const displayEmail = document.getElementById('displayEmail');
+    const stepSubtitle = document.getElementById('stepSubtitle');
 
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
-    const stepFinish = document.getElementById('stepFinish');
-    const stepLoading = document.getElementById('stepLoading');
-    const loadingText = document.getElementById('loadingText');
-    
-    const circle1 = document.getElementById('circle1');
-    const circle2 = document.getElementById('circle2');
-    const circle3 = document.getElementById('circle3');
-    const stepDescription = document.getElementById('stepDescription');
+    const step3 = document.getElementById('step3');
 
-    const emailInput = document.getElementById('email');
-    const rawLinkInput = document.getElementById('rawLink');
-    const emailError = document.getElementById('emailError');
-    const linkError = document.getElementById('linkError');
+    const circle1 = document.getElementById('circleStep1');
+    const circle2 = document.getElementById('circleStep2');
+    const circle3 = document.getElementById('circleStep3');
 
-    const btnSend = document.getElementById('btnSend');
-    const btnProcess = document.getElementById('btnProcess');
-    const btnHome = document.getElementById('btnHome');
-    
-    const modalLog = document.getElementById('modalLog');
-    const btnCloseModal = document.getElementById('btnCloseModal');
-    const modalIconBox = document.getElementById('modalIconBox');
-    const iconSuccess = document.getElementById('iconSuccess');
-    const iconError = document.getElementById('iconError');
-    const badgeStatus = document.getElementById('badgeStatus');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
+    const btnStep1 = document.getElementById('btnStep1');
+    const btnStep2 = document.getElementById('btnStep2');
+    const btnBackToStep1 = document.getElementById('btnBackToStep1');
     const btnReset = document.getElementById('btnReset');
 
-    // Hilangkan error saat user mengetik
-    emailInput.addEventListener('input', () => {
-      emailInput.classList.remove('input-error');
-      emailError.classList.add('hidden');
-    });
+    function goToStep(stepNumber) {
+      step1.classList.remove('active-step');
+      step2.classList.remove('active-step');
+      step3.classList.remove('active-step');
 
-    rawLinkInput.addEventListener('input', () => {
-      rawLinkInput.classList.remove('input-error');
-      linkError.classList.add('hidden');
-    });
+      circle1.classList.remove('active');
+      circle2.classList.remove('active');
+      circle3.classList.remove('active');
 
-    // Fungsi Reset Form Kembali ke Halaman Awal
-    function resetToHome() {
-      modalLog.classList.add('hidden');
-      stepLoading.classList.add('hidden');
-      step2.classList.add('hidden');
-      stepFinish.classList.add('hidden');
-      step1.classList.remove('hidden');
-
-      circle1.className = 'step-circle active';
-      circle2.className = 'step-circle';
-      circle3.className = 'step-circle';
-
-      stepDescription.innerText = 'Langkah 1: Masukkan email akun Alight Motion';
-
-      btnSend.disabled = false;
-      btnSend.innerText = 'Kirim Magic Link';
-      btnProcess.disabled = false;
-      btnProcess.innerText = 'Proses Aktivasi Premium';
-
-      emailInput.value = '';
-      rawLinkInput.value = '';
-      emailInput.classList.remove('input-error');
-      emailError.classList.add('hidden');
-      rawLinkInput.classList.remove('input-error');
-      linkError.classList.add('hidden');
+      if (stepNumber === 1) {
+        step1.classList.add('active-step');
+        circle1.classList.add('active');
+        stepSubtitle.textContent = "Langkah 1: Masukkan email akun Alight Motion";
+      } else if (stepNumber === 2) {
+        step2.classList.add('active-step');
+        circle1.classList.add('active');
+        circle2.classList.add('active');
+        stepSubtitle.textContent = "Langkah 2: Buka email & klik Magic Link";
+      } else if (stepNumber === 3) {
+        step3.classList.add('active-step');
+        circle1.classList.add('active');
+        circle2.classList.add('active');
+        circle3.classList.add('active');
+        stepSubtitle.textContent = "Langkah 3: Aktivasi Selesai";
+      }
     }
 
-    // STEP 1: Send Magic Link
-    btnSend.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      if (!email) {
-        emailInput.classList.add('input-error');
-        emailError.classList.remove('hidden');
-        return;
-      }
-
-      btnSend.disabled = true;
-      btnSend.innerText = 'Mengirim Magic Link...';
-
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'send-magiclink', email })
-        });
-
-        const data = await response.json();
-        
-        if (data.success) {
-          step1.classList.add('hidden');
-          step2.classList.remove('hidden');
-          
-          circle1.classList.remove('active');
-          circle1.classList.add('completed');
-          circle2.classList.add('active');
-
-          stepDescription.innerText = 'Langkah 2: Verifikasi Magic Link dari Email';
-        } else {
-          alert(data.message || 'Gagal mengirim magic link!');
-          btnSend.disabled = false;
-          btnSend.innerText = 'Kirim Magic Link';
-        }
-      } catch (err) {
-        alert(`Gagal terhubung ke API: ${err.message}`);
-        btnSend.disabled = false;
-        btnSend.innerText = 'Kirim Magic Link';
+    // Klik Kirim Magic Link
+    btnStep1.addEventListener('click', () => {
+      const value = emailInput.value.trim();
+      if (value === '') {
+        errorMsg.style.display = 'flex';
+        emailInput.style.borderColor = '#f87171';
+      } else {
+        errorMsg.style.display = 'none';
+        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+        displayEmail.textContent = value;
+        goToStep(2);
       }
     });
 
-    // STEP 2: Verify & Apply Premium
-    btnProcess.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const rawLink = rawLinkInput.value.trim();
-
-      if (!rawLink) {
-        rawLinkInput.classList.add('input-error');
-        linkError.classList.remove('hidden');
-        return;
-      }
-
-      // Tampilkan animasi loading
-      step2.classList.add('hidden');
-      stepLoading.classList.remove('hidden');
-      circle2.classList.remove('active');
-      circle2.classList.add('completed');
-      circle3.classList.add('active');
-      stepDescription.innerText = 'Langkah 3: Proses Mengaktifkan Premium';
-
-      loadingText.innerText = 'Memulai verifikasi akun...';
-
-      try {
-        const verifyRes = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'verify-account', email, rawLink })
-        });
-
-        const verifyData = await verifyRes.json();
-
-        if (!verifyData.success) {
-          throw new Error(verifyData.message || 'Verifikasi link gagal!');
-        }
-
-        const idToken = verifyData.idToken || verifyData.profile?.idToken;
-        if (!idToken) {
-          throw new Error('idToken tidak ditemukan!');
-        }
-
-        loadingText.innerText = 'Mengirim perintah Premium ke server...';
-
-        const premRes = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'apply-premium', email, idToken })
-        });
-
-        const premData = await premRes.json();
-        
-        if (premData.success) {
-          circle3.classList.remove('active');
-          circle3.classList.add('completed');
-          stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
-
-          // POPUP SUKSES MODERN
-          modalIconBox.className = 'icon-box success';
-          iconSuccess.classList.remove('hidden');
-          iconError.classList.add('hidden');
-          badgeStatus.classList.remove('hidden');
-          modalTitle.innerText = 'Aktivasi Berhasil!';
-          modalSubtitle.innerText = 'Selamat, akun Alight Motion kamu sekarang sudah resmi berstatus Premium.';
-          modalLog.classList.remove('hidden');
-
-          // Siapkan tampilan di card belakang
-          stepFinish.classList.remove('hidden');
-        } else {
-          throw new Error(premData.message || 'Aktivasi premium gagal');
-        }
-
-      } catch (err) {
-        // POPUP ERROR MODERN
-        modalIconBox.className = 'icon-box error';
-        iconSuccess.classList.add('hidden');
-        iconError.classList.remove('hidden');
-        badgeStatus.classList.add('hidden');
-        modalTitle.innerText = 'Proses Gagal';
-        modalSubtitle.innerText = err.message || 'Terjadi kesalahan, silakan coba lagi.';
-        modalLog.classList.remove('hidden');
-
-        // Siapkan tampilan di card belakang
-        stepFinish.classList.remove('hidden');
-      } finally {
-        stepLoading.classList.add('hidden');
+    emailInput.addEventListener('input', () => {
+      if (emailInput.value.trim() !== '') {
+        errorMsg.style.display = 'none';
+        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
       }
     });
 
-    // Close Modal via (X) -> Reset ke awal
-    btnCloseModal.addEventListener('click', resetToHome);
+    // Pindah Step 2 -> Step 3
+    btnStep2.addEventListener('click', () => {
+      goToStep(3);
+    });
 
-    // Click Tombol Kembali ke Awal dari Modal Pop-up
-    btnReset.addEventListener('click', resetToHome);
+    // Pindah Kembali Step 2 -> Step 1
+    btnBackToStep1.addEventListener('click', () => {
+      goToStep(1);
+    });
 
-    // Click Tombol Kembali ke Halaman Awal dari Card Utama
-    btnHome.addEventListener('click', resetToHome);
+    // Reset ke Step 1
+    btnReset.addEventListener('click', () => {
+      emailInput.value = '';
+      goToStep(1);
+    });
   </script>
 </body>
 </html>
