@@ -194,14 +194,14 @@
 
     .hidden { display: none !important; }
 
-    /* POPUP MUSIC PLAYER (SPOTIFY EMBED) */
+    /* POPUP MUSIC PLAYER CUSTOM (FULL LAGU & DINAMIK FOTO) */
     .music-modal-card {
       background: #111622;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 28px;
       width: 100%;
       max-width: 380px;
-      padding: 20px;
+      padding: 24px;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
       position: relative;
       animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -214,8 +214,8 @@
 
     .close-btn {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      top: 16px;
+      right: 16px;
       background: rgba(255, 255, 255, 0.1);
       border: none;
       color: #94a3b8;
@@ -230,26 +230,137 @@
       z-index: 2;
     }
 
+    /* Cover Art */
+    .music-cover {
+      width: 100%;
+      height: 220px;
+      border-radius: 18px;
+      object-fit: cover;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      transition: src 0.3s ease-in-out;
+    }
+
     .now-playing-tag {
       font-size: 11px;
       font-weight: 700;
-      color: #1ed760;
+      color: #38bdf8;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
 
     .now-playing-tag span {
       display: inline-block;
       width: 6px;
       height: 6px;
-      background: #1ed760;
+      background: #38bdf8;
       border-radius: 50%;
     }
 
-    /* BOTTOM NAVBAR DI TENGAH */
+    .song-title {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+
+    .song-artist {
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 2px;
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    /* Slider Progress */
+    .time-slider-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .time-slider {
+      width: 100%;
+      accent-color: #ffffff;
+      height: 4px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+
+    .time-labels {
+      display: flex;
+      justify-content: space-between;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    /* Controls */
+    .btn-controls-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 20px;
+    }
+
+    .btn-music-action {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .btn-music-action:hover {
+      color: #ffffff;
+    }
+
+    .btn-play-main {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #090d16;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-play-main:hover {
+      transform: scale(1.06);
+    }
+
+    .volume-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #64748b;
+    }
+
+    .volume-slider {
+      width: 100%;
+      accent-color: #38bdf8;
+      height: 4px;
+      cursor: pointer;
+    }
+
+    /* BOTTOM NAVBAR */
     .bottom-nav {
       position: fixed;
       bottom: 20px;
@@ -292,7 +403,6 @@
       stroke-width: 2;
     }
 
-    /* Tombol Home Bulat Glow di Tengah */
     .nav-item-center {
       width: 44px;
       height: 44px;
@@ -346,38 +456,60 @@
     </div>
   </div>
 
-  <!-- POPUP MUSIC PLAYER (SPOTIFY PLAYLIST RESMI) -->
+  <!-- POPUP MUSIC PLAYER -->
   <div class="modal-overlay hidden" id="modalMusic">
     <div class="music-modal-card">
       <button class="close-btn" id="btnCloseMusic">&times;</button>
 
+      <!-- FOTO COVER (BERUBAH SESUAI LAGU) -->
+      <img id="musicCover" src="" alt="Cover Lagu" class="music-cover">
+
       <div class="now-playing-tag">
-        <span></span> SPOTIFY PLAYLIST
+        <span></span> NOW PLAYING
       </div>
 
-      <!-- SPOTIFY EMBED PLAYER -->
-      <iframe 
-        id="spotifyPlayer"
-        style="border-radius:16px;" 
-        src="https://open.spotify.com/embed/playlist/4dWDoT3WBviqWbXK2aX8Rr?utm_source=generator&theme=0" 
-        width="100%" 
-        height="380" 
-        frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy">
-      </iframe>
+      <div class="song-title" id="songTitle">Sedia Aku Sebelum Hujan</div>
+      <div class="song-artist" id="songArtist">Idgitaf</div>
+
+      <div class="time-slider-container">
+        <input type="range" class="time-slider" id="musicSeek" value="0" min="0" max="100">
+        <div class="time-labels">
+          <span id="currentTime">0:00</span>
+          <span id="totalTime">0:00</span>
+        </div>
+      </div>
+
+      <div class="btn-controls-row">
+        <button class="btn-music-action" id="btnPrev">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        
+        <button class="btn-play-main" id="btnMusicPlay">
+          <svg id="playIcon" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" class="hidden" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+
+        <button class="btn-music-action" id="btnNext">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+      </div>
+
+      <div class="volume-row">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.8">
+      </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAVBAR (POSISI HOME DI TENGAH) -->
+  <audio id="bgAudio"></audio>
+
+  <!-- BOTTOM NAVBAR -->
   <div class="bottom-nav">
     <a href="https://wa.me/6281234567890" target="_blank" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 21l1.9-5.7a8.5 8.5 0 113.8 3.8z"/></svg>
       <span>WHATSAPP</span>
     </a>
 
-    <!-- TOMBOL HOME DI TENGAH -->
     <button class="nav-item-center" id="navHome">
       <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     </button>
@@ -389,18 +521,119 @@
   </div>
 
   <script>
+    // DAFTAR LAGU PLAYLIST SPOTIFY KANTONG (FOTO AUTOMATIS BERUBAH SESUAI LAGU)
+    // Tinggal ganti atribut 'src' dengan link MP3 FULL milikmu sendiri.
+    const playlist = [
+      {
+        title: "Sedia Aku Sebelum Hujan",
+        artist: "Idgitaf",
+        cover: "https://i.scdn.co/image/ab67616d0000b273b5f7e7f91757e8ebcf86ff73", 
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        title: "33x",
+        artist: "Perunggu",
+        cover: "https://i.scdn.co/image/ab67616d0000b273da9bb2cfbf1f08cb3a890521",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        title: "Merindumu lagi",
+        artist: "Khifnu",
+        cover: "https://i.scdn.co/image/ab67616d0000b27341e9724185bc0aaef4dd5dd1",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      }
+    ];
+
+    let currentTrack = 0;
+
     const navMusic = document.getElementById('navMusic');
     const modalMusic = document.getElementById('modalMusic');
     const btnCloseMusic = document.getElementById('btnCloseMusic');
+    const bgAudio = document.getElementById('bgAudio');
+    const btnMusicPlay = document.getElementById('btnMusicPlay');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const musicSeek = document.getElementById('musicSeek');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const songTitle = document.getElementById('songTitle');
+    const songArtist = document.getElementById('songArtist');
+    const musicCover = document.getElementById('musicCover');
+    const btnNext = document.getElementById('btnNext');
+    const btnPrev = document.getElementById('btnPrev');
 
-    // Buka Popup Spotify
-    navMusic.addEventListener('click', () => {
-      modalMusic.classList.remove('hidden');
+    // Load lagu pertama saat web dimuat
+    function loadTrack(index) {
+      const track = playlist[index];
+      songTitle.innerText = track.title;
+      songArtist.innerText = track.artist;
+      musicCover.src = track.cover; // Mengubah Foto Sesuai Cover Spotify
+      bgAudio.src = track.src;
+    }
+
+    loadTrack(currentTrack);
+
+    // Buka / Tutup Popup
+    navMusic.addEventListener('click', () => modalMusic.classList.remove('hidden'));
+    btnCloseMusic.addEventListener('click', () => modalMusic.classList.add('hidden'));
+
+    // Play & Pause
+    btnMusicPlay.addEventListener('click', () => {
+      if (bgAudio.paused) {
+        bgAudio.play();
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+      } else {
+        bgAudio.pause();
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+      }
     });
 
-    // Tutup Popup Spotify
-    btnCloseMusic.addEventListener('click', () => {
-      modalMusic.classList.add('hidden');
+    // Update Slider Progress
+    bgAudio.addEventListener('timeupdate', () => {
+      if (bgAudio.duration) {
+        const progress = (bgAudio.currentTime / bgAudio.duration) * 100;
+        musicSeek.value = progress;
+        
+        let curMins = Math.floor(bgAudio.currentTime / 60);
+        let curSecs = Math.floor(bgAudio.currentTime % 60);
+        if (curSecs < 10) curSecs = '0' + curSecs;
+        currentTimeEl.innerText = `${curMins}:${curSecs}`;
+
+        let durMins = Math.floor(bgAudio.duration / 60);
+        let durSecs = Math.floor(bgAudio.duration % 60);
+        if (durSecs < 10) durSecs = '0' + durSecs;
+        totalTimeEl.innerText = `${durMins}:${durSecs}`;
+      }
+    });
+
+    musicSeek.addEventListener('input', () => {
+      if (bgAudio.duration) {
+        bgAudio.currentTime = (musicSeek.value / 100) * bgAudio.duration;
+      }
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+      bgAudio.volume = e.target.value;
+    });
+
+    // Next / Prev Lagu (Foto Otomatis Terganti)
+    btnNext.addEventListener('click', () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+      bgAudio.play();
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+    });
+
+    btnPrev.addEventListener('click', () => {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
+      bgAudio.play();
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
     });
   </script>
 </body>
