@@ -3,354 +3,499 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alight Motion Premium Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>KALZ - Alight Motion Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
+      background-color: #0b0c10;
+      color: #ffffff;
       min-height: 100vh;
-      background: #090d16;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      padding: 20px;
+      position: relative;
       overflow-x: hidden;
-      position: relative;
+      padding-bottom: 150px; /* Space untuk music player & bottom nav */
     }
 
-    /* Efek Bola Cahaya di Belakang Kaca */
-    .blob {
+    body::before {
+      content: "";
       position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      z-index: 0;
-      animation: float 10s infinite alternate ease-in-out;
-    }
-
-    .blob-1 {
-      width: 300px;
-      height: 300px;
-      background: rgba(147, 51, 234, 0.45);
-      top: 10%;
-      left: 15%;
-    }
-
-    .blob-2 {
-      width: 250px;
-      height: 250px;
-      background: rgba(59, 130, 246, 0.45);
-      bottom: 15%;
-      right: 15%;
-    }
-
-    .blob-3 {
-      width: 200px;
-      height: 200px;
-      background: rgba(236, 72, 153, 0.35);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px) scale(1); }
-      100% { transform: translateY(-30px) scale(1.1); }
-    }
-
-    /* Card Glassmorphism */
-    .glass-card {
-      position: relative;
-      z-index: 1;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 440px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 24px;
-      padding: 32px 28px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      height: 100%;
+      background: 
+        radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.5) 0%, transparent 60%),
+        radial-gradient(circle at 80% 60%, rgba(15, 23, 42, 0.8) 0%, transparent 50%);
+      z-index: -1;
     }
 
-    .header {
-      text-align: center;
+    /* Top Logo KALZ */
+    .brand-logo {
+      margin-top: 25px;
+      font-size: 42px;
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 4px 15px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Container Utama */
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 10px;
+    }
+
+    /* Badge Akses */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .badge svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: #94a3b8;
+      stroke-width: 2;
+    }
+
+    /* Title & Description */
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .subtitle-highlight {
+      font-size: 15px;
+      color: #cbd5e1;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .description {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
       margin-bottom: 28px;
     }
 
-    .header h1 {
-      color: #ffffff;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .header p {
-      color: #94a3b8;
-      font-size: 13px;
-      margin-top: 6px;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      color: #cbd5e1;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    input {
+    /* Action Buttons */
+    .btn-group {
       width: 100%;
-      padding: 14px 16px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      color: #fff;
-      font-size: 14px;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    input::placeholder {
-      color: #64748b;
-    }
-
-    input:focus {
-      border-color: rgba(168, 85, 247, 0.8);
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
-      background: rgba(255, 255, 255, 0.09);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
     }
 
     .btn {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
       cursor: pointer;
-      transition: all 0.3s ease;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
-      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+      background-color: #e2e8f0;
+      color: #0f172a;
+      box-shadow: 0px 4px 20px rgba(226, 232, 240, 0.15);
     }
 
-    .btn-primary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+    .btn-primary:active {
+      transform: scale(0.98);
+      background-color: #cbd5e1;
     }
 
     .btn-secondary {
-      background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-      margin-top: 6px;
+      background-color: rgba(30, 41, 59, 0.6);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .btn-secondary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+    .btn-secondary:active {
+      transform: scale(0.98);
+      background-color: rgba(51, 65, 85, 0.8);
     }
 
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
+    /* User Stats & Avatars */
+    .stats-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .divider {
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 22px 0;
+    .avatar-group {
+      display: flex;
+      align-items: center;
     }
 
-    /* Console Logs */
-    .log-box {
-      margin-top: 22px;
-      background: rgba(0, 0, 0, 0.4);
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #1e293b;
+      border: 2px solid #0b0c10;
+      margin-left: -8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #64748b;
+    }
+
+    .avatar:first-child {
+      margin-left: 0;
+    }
+
+    .avatar svg {
+      width: 16px;
+      height: 16px;
+      fill: #94a3b8;
+    }
+
+    .stats-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stats-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+
+    .stats-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #475569;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Music Player Widget */
+    .music-widget {
+      position: fixed;
+      bottom: 75px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 400px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 14px;
-      font-family: monospace;
+      border-radius: 16px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 99;
+    }
+
+    .music-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .music-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .music-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .music-title {
       font-size: 12px;
-      height: 130px;
-      overflow-y: auto;
-      color: #38bdf8;
+      font-weight: 700;
+      color: #fff;
     }
 
-    .log-entry {
-      margin-bottom: 6px;
-      word-break: break-all;
+    .music-status {
+      font-size: 10px;
+      color: #94a3b8;
     }
 
-    .log-entry.error {
-      color: #f87171;
+    .music-btn {
+      background: #ffffff;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
     }
 
-    .log-entry.success {
-      color: #4ade80;
+    .music-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #000;
     }
 
-    /* Scrollbar Styling */
-    .log-box::-webkit-scrollbar {
-      width: 4px;
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 400px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 35px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
     }
 
-    .log-box::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: #64748b;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 6px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      stroke: #64748b;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-item.active {
+      color: #ffffff;
+    }
+
+    .nav-item.active svg {
+      stroke: #ffffff;
+    }
+
+    .nav-item.active::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      width: 20px;
+      height: 3px;
+      background-color: #ffffff;
+      border-radius: 2px;
+      box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-center {
+      width: 42px;
+      height: 42px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+      margin-top: -4px;
+    }
+
+    .nav-center svg {
+      width: 20px;
+      height: 20px;
+      fill: #000000;
+      stroke: #000000;
     }
   </style>
 </head>
 <body>
 
-  <!-- Element Cahaya Background -->
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
+  <!-- Logo Brand KALZ -->
+  <div class="brand-logo">KALZ</div>
 
-  <!-- Kartu Utama -->
-  <div class="glass-card">
-    <div class="header">
-      <h1>Alight Premium Generator</h1>
-      <p>Masukan email dan verifikasi magic link kamu</p>
+  <!-- Konten Utama -->
+  <div class="container">
+    
+    <!-- Badge -->
+    <div class="badge">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Akses 1 Tahun Gratis
     </div>
 
-    <!-- Step 1 -->
-    <div class="form-group">
-      <label for="email">1. Alamat Email</label>
-      <input type="email" id="email" placeholder="contoh@gmail.com" required>
+    <!-- Judul -->
+    <h1 class="title">Alight Motion<br>Premium</h1>
+
+    <!-- Subjudul & Deskripsi -->
+    <p class="subtitle-highlight">gratis 1 tahun, tanpa biaya.</p>
+    <p class="description">
+      Nikmati fitur premium Alight Motion secara gratis dengan proses aktivasi yang mudah, cepat, dan praktis.
+    </p>
+
+    <!-- Tombol Aksi -->
+    <div class="btn-group">
+      <a href="#" class="btn btn-primary" onclick="alert('Mulai Aktivasi'); return false;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        Mulai Aktivasi
+      </a>
+      <a href="#" class="btn btn-secondary" onclick="alert('Membuka Panduan'); return false;">
+        Lihat Panduan
+      </a>
     </div>
-    <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
 
-    <div class="divider"></div>
-
-    <!-- Step 2 -->
-    <div class="form-group">
-      <label for="rawLink">2. Raw Magic Link</label>
-      <input type="text" id="rawLink" placeholder="Tempel magic link dari email...">
+    <!-- Statistik Pengguna -->
+    <div class="stats-container">
+      <div class="avatar-group">
+        <div class="avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      </div>
+      <div class="stats-text">
+        <span class="stats-count">10K+</span>
+        <span class="stats-label">Pengguna Aktif</span>
+      </div>
     </div>
-    <button id="btnProcess" class="btn btn-secondary">Proses Premium</button>
 
-    <!-- Output Status Log -->
-    <div class="log-box" id="logBox">
-      <div class="log-entry">> Siap diproses...</div>
+  </div>
+
+  <!-- Music Player Audio Element -->
+  <audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+  <!-- Widget Music Player -->
+  <div class="music-widget">
+    <div class="music-info">
+      <div class="music-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="music-text">
+        <span class="music-title">Background Music</span>
+        <span class="music-status" id="musicStatus">Ketuk Play untuk memutar</span>
+      </div>
+    </div>
+    <button class="music-btn" id="playToggle">
+      <!-- Icon Play -->
+      <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <!-- Icon Pause (Hidden by default) -->
+      <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+    </button>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-nav">
+    <a href="#" class="nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Beranda
+    </a>
+
+    <a href="#" class="nav-item">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Telegram
+    </a>
+
+    <a href="#" class="nav-center">
+      <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </a>
+
+    <a href="#" class="nav-item">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+
+    <div class="nav-item" id="navMusikBtn">
+      <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      Musik
     </div>
   </div>
 
   <script>
-    const API_URL = 'https://anita-studio.netlify.app/.netlify/functions/amprem';
+    const audio = document.getElementById('audioPlayer');
+    const playToggle = document.getElementById('playToggle');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const musicStatus = document.getElementById('musicStatus');
+    const navMusikBtn = document.getElementById('navMusikBtn');
 
-    const emailInput = document.getElementById('email');
-    const rawLinkInput = document.getElementById('rawLink');
-    const btnSend = document.getElementById('btnSend');
-    const btnProcess = document.getElementById('btnProcess');
-    const logBox = document.getElementById('logBox');
-
-    function log(message, type = 'normal') {
-      const entry = document.createElement('div');
-      entry.className = `log-entry ${type}`;
-      entry.innerText = `> ${message}`;
-      logBox.appendChild(entry);
-      logBox.scrollTop = logBox.scrollHeight;
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        musicStatus.innerText = 'Sedang memutar...';
+      } else {
+        audio.pause();
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        musicStatus.innerText = 'Dipause';
+      }
     }
 
-    // Step 1: Kirim Magic Link
-    btnSend.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      if (!email) {
-        log('Harap masukkan email terlebih dahulu!', 'error');
-        return;
-      }
-
-      btnSend.disabled = true;
-      log('Mengirim Magic Link ke email...');
-
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'send-magiclink', email })
-        });
-
-        const data = await response.json();
-        log(JSON.stringify(data), data.success ? 'success' : 'error');
-      } catch (err) {
-        log(`Gagal terhubung ke API: ${err.message}`, 'error');
-      } finally {
-        btnSend.disabled = false;
-      }
-    });
-
-    // Step 2: Verifikasi & Apply Premium
-    btnProcess.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const rawLink = rawLinkInput.value.trim();
-
-      if (!email || !rawLink) {
-        log('Email dan Raw Magic Link wajib diisi!', 'error');
-        return;
-      }
-
-      btnProcess.disabled = true;
-      log('Memverifikasi tautan...');
-
-      try {
-        // 1. Verify Account
-        const verifyRes = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'verify-account', email, rawLink })
-        });
-
-        const verifyData = await verifyRes.json();
-        log(`Verifikasi: ${JSON.stringify(verifyData)}`);
-
-        if (!verifyData.success) {
-          throw new Error(verifyData.message || 'Verifikasi gagal');
-        }
-
-        const idToken = verifyData.idToken || verifyData.profile?.idToken;
-        if (!idToken) {
-          throw new Error('idToken tidak ditemukan dari hasil verifikasi');
-        }
-
-        // 2. Apply Premium
-        log('Mengaktifkan status premium...');
-        const premRes = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'apply-premium', email, idToken })
-        });
-
-        const premData = await premRes.json();
-        log(`Hasil: ${JSON.stringify(premData)}`, premData.success ? 'success' : 'error');
-
-      } catch (err) {
-        log(`Error: ${err.message}`, 'error');
-      } finally {
-        btnProcess.disabled = false;
-      }
-    });
+    playToggle.addEventListener('click', toggleAudio);
+    navMusikBtn.addEventListener('click', toggleAudio);
   </script>
+
 </body>
 </html>
