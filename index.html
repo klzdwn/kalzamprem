@@ -185,6 +185,16 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
+    /* Mencegah background input berubah putih saat terisi / autofill */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 1000px #15171e inset !important;
+      -webkit-text-fill-color: #ffffff !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
     /* Teks Error di Bawah Kolom Input */
     .error-text {
       color: #f87171;
