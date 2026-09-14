@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KALZ AM PREM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -220,6 +220,11 @@
       box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
     }
 
+    .btn-success {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    }
+
     .btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -230,7 +235,7 @@
       display: none !important;
     }
 
-    /* Teks Proses Bergerak / Loading Spinner */
+    /* Loading Spinner */
     .loading-state {
       text-align: center;
       padding: 20px 0;
@@ -263,16 +268,16 @@
       50% { opacity: 1; }
     }
 
-    /* Modal Pop-up Mengambang */
+    /* POPUP MODAL MODERN */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(4, 7, 13, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 99;
       display: flex;
       justify-content: center;
@@ -280,45 +285,33 @@
       padding: 20px;
     }
 
-    .modal-box {
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
+    .modal-card {
+      background: rgba(18, 24, 38, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
       width: 100%;
-      max-width: 400px;
-      padding: 24px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      max-width: 380px;
+      padding: 32px 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
       position: relative;
-      animation: popup 0.3s ease-out forwards;
+      animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       text-align: center;
     }
 
-    @keyframes popup {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 10px;
-    }
-
-    .modal-header h3 {
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
+    @keyframes modalPop {
+      from { transform: scale(0.85) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
     .close-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #94a3b8;
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       font-size: 16px;
       cursor: pointer;
@@ -329,24 +322,68 @@
     }
 
     .close-btn:hover {
-      background: rgba(239, 68, 68, 0.8);
-      color: #fff;
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
     }
 
-    .status-content {
-      padding: 10px 0;
+    .icon-box {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      position: relative;
     }
 
-    .status-text {
-      font-size: 15px;
-      font-weight: 600;
+    .icon-box.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 2px solid rgba(74, 222, 128, 0.4);
       color: #4ade80;
-      margin-bottom: 8px;
-      line-height: 1.4;
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
     }
 
-    .status-text.error {
+    .icon-box.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 2px solid rgba(248, 113, 113, 0.4);
       color: #f87171;
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+    }
+
+    .icon-box svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .modal-title {
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .modal-subtitle {
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 6px 16px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: #4ade80;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -393,6 +430,14 @@
       <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
     </div>
 
+    <!-- PAGE STEP 3: TOMBOL KEMBALI DI CARD -->
+    <div id="stepFinish" class="hidden">
+      <div class="info-box" style="text-align: center; border-left: none; border-top: 3px solid #22c55e;">
+        Proses telah selesai. Klik tombol di bawah untuk kembali ke tampilan awal.
+      </div>
+      <button id="btnHome" class="btn btn-success">Kembali ke Halaman Awal</button>
+    </div>
+
     <!-- PAGE STEP LOADING BERGERAK -->
     <div id="stepLoading" class="loading-state hidden">
       <div class="spinner"></div>
@@ -400,17 +445,27 @@
     </div>
   </div>
 
-  <!-- POPUP RESULT MENGAMBANG -->
+  <!-- POPUP RESULT MODERN -->
   <div class="modal-overlay hidden" id="modalLog">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Status Aktivasi</h3>
-        <button class="close-btn" id="btnCloseModal">&times;</button>
+    <div class="modal-card">
+      <button class="close-btn" id="btnCloseModal">&times;</button>
+      
+      <!-- Icon Box -->
+      <div class="icon-box success" id="modalIconBox">
+        <svg id="iconSuccess" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+        </svg>
+        <svg id="iconError" class="hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
       </div>
-      <div class="status-content">
-        <div class="status-text" id="modalStatusText">> SUKSES: Fitur Premium Berhasil Diaktifkan!</div>
-      </div>
-      <button id="btnReset" class="btn btn-primary" style="margin-top: 16px;">Kembali ke Awal</button>
+
+      <div id="badgeStatus" class="badge-status">PREMIUM ACTIVE</div>
+      
+      <h3 class="modal-title" id="modalTitle">Aktivasi Berhasil!</h3>
+      <p class="modal-subtitle" id="modalSubtitle">Fitur Alight Motion Premium kamu sudah aktif dan siap digunakan secara penuh.</p>
+      
+      <button id="btnReset" class="btn btn-primary">Kembali ke Halaman Awal</button>
     </div>
   </div>
 
@@ -419,6 +474,7 @@
 
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
+    const stepFinish = document.getElementById('stepFinish');
     const stepLoading = document.getElementById('stepLoading');
     const loadingText = document.getElementById('loadingText');
     
@@ -431,11 +487,40 @@
     const rawLinkInput = document.getElementById('rawLink');
     const btnSend = document.getElementById('btnSend');
     const btnProcess = document.getElementById('btnProcess');
+    const btnHome = document.getElementById('btnHome');
     
     const modalLog = document.getElementById('modalLog');
     const btnCloseModal = document.getElementById('btnCloseModal');
-    const modalStatusText = document.getElementById('modalStatusText');
+    const modalIconBox = document.getElementById('modalIconBox');
+    const iconSuccess = document.getElementById('iconSuccess');
+    const iconError = document.getElementById('iconError');
+    const badgeStatus = document.getElementById('badgeStatus');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
     const btnReset = document.getElementById('btnReset');
+
+    // Fungsi Reset Form Kembali ke Halaman Awal
+    function resetToHome() {
+      modalLog.classList.add('hidden');
+      stepLoading.classList.add('hidden');
+      step2.classList.add('hidden');
+      stepFinish.classList.add('hidden');
+      step1.classList.remove('hidden');
+
+      circle1.className = 'step-circle active';
+      circle2.className = 'step-circle';
+      circle3.className = 'step-circle';
+
+      stepDescription.innerText = 'Langkah 1: Masukkan email akun Alight Motion';
+
+      btnSend.disabled = false;
+      btnSend.innerText = 'Kirim Magic Link';
+      btnProcess.disabled = false;
+      btnProcess.innerText = 'Proses Aktivasi Premium';
+
+      emailInput.value = '';
+      rawLinkInput.value = '';
+    }
 
     // STEP 1: Send Magic Link
     btnSend.addEventListener('click', async () => {
@@ -488,7 +573,7 @@
         return;
       }
 
-      // Tampilkan animasi loading di card
+      // Tampilkan animasi loading
       step2.classList.add('hidden');
       stepLoading.classList.remove('hidden');
       circle2.classList.remove('active');
@@ -516,7 +601,6 @@
           throw new Error('idToken tidak ditemukan!');
         }
 
-        // Ubah teks bergerak saat verifikasi selesai & mau kirim ke server
         loadingText.innerText = 'Mengirim perintah Premium ke server...';
 
         const premRes = await fetch(API_URL, {
@@ -532,49 +616,46 @@
           circle3.classList.add('completed');
           stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
 
-          // TAMPILKAN POPUP SUKSES (Hanya Teks Sukses, JSON Dihide)
-          modalStatusText.className = 'status-text';
-          modalStatusText.innerText = '> SUKSES: Fitur Premium Berhasil Diaktifkan!';
+          // POPUP SUKSES MODERN
+          modalIconBox.className = 'icon-box success';
+          iconSuccess.classList.remove('hidden');
+          iconError.classList.add('hidden');
+          badgeStatus.classList.remove('hidden');
+          modalTitle.innerText = 'Aktivasi Berhasil!';
+          modalSubtitle.innerText = 'Selamat, akun Alight Motion kamu sekarang sudah resmi berstatus Premium.';
           modalLog.classList.remove('hidden');
+
+          // Siapkan tampilan di card belakang
+          stepFinish.classList.remove('hidden');
         } else {
           throw new Error(premData.message || 'Aktivasi premium gagal');
         }
 
       } catch (err) {
-        modalStatusText.className = 'status-text error';
-        modalStatusText.innerText = `> Gagal: ${err.message}`;
+        // POPUP ERROR MODERN
+        modalIconBox.className = 'icon-box error';
+        iconSuccess.classList.add('hidden');
+        iconError.classList.remove('hidden');
+        badgeStatus.classList.add('hidden');
+        modalTitle.innerText = 'Proses Gagal';
+        modalSubtitle.innerText = err.message || 'Terjadi kesalahan, silakan coba lagi.';
         modalLog.classList.remove('hidden');
+
+        // Siapkan tampilan di card belakang
+        stepFinish.classList.remove('hidden');
       } finally {
         stepLoading.classList.add('hidden');
       }
     });
 
-    // Tutup Pop-up
-    btnCloseModal.addEventListener('click', () => {
-      modalLog.classList.add('hidden');
-    });
+    // Close Modal via (X) -> Reset ke awal
+    btnCloseModal.addEventListener('click', resetToHome);
 
-    // Reset Form untuk Ulangi Awal
-    btnReset.addEventListener('click', () => {
-      modalLog.classList.add('hidden');
-      stepLoading.classList.add('hidden');
-      step2.classList.add('hidden');
-      step1.classList.remove('hidden');
+    // Click Tombol Kembali ke Awal dari Modal Pop-up
+    btnReset.addEventListener('click', resetToHome);
 
-      circle1.className = 'step-circle active';
-      circle2.className = 'step-circle';
-      circle3.className = 'step-circle';
-
-      stepDescription.innerText = 'Langkah 1: Masukkan email akun Alight Motion';
-
-      btnSend.disabled = false;
-      btnSend.innerText = 'Kirim Magic Link';
-      btnProcess.disabled = false;
-      btnProcess.innerText = 'Proses Aktivasi Premium';
-
-      emailInput.value = '';
-      rawLinkInput.value = '';
-    });
+    // Click Tombol Kembali ke Halaman Awal dari Card Utama
+    btnHome.addEventListener('click', resetToHome);
   </script>
 </body>
 </html>
