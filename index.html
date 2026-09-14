@@ -230,6 +230,39 @@
       display: none !important;
     }
 
+    /* Teks Proses Bergerak / Loading Spinner */
+    .loading-state {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid #38bdf8;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: #38bdf8;
+      font-size: 14px;
+      font-weight: 600;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
     /* Modal Pop-up Mengambang */
     .modal-overlay {
       position: fixed;
@@ -237,7 +270,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 99;
@@ -252,11 +285,12 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       width: 100%;
-      max-width: 420px;
-      padding: 20px;
+      max-width: 400px;
+      padding: 24px;
       box-shadow: 0 25px 50px rgba(0,0,0,0.8);
       position: relative;
       animation: popup 0.3s ease-out forwards;
+      text-align: center;
     }
 
     @keyframes popup {
@@ -268,14 +302,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       padding-bottom: 10px;
     }
 
     .modal-header h3 {
       color: #fff;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
     }
 
@@ -299,25 +333,21 @@
       color: #fff;
     }
 
-    .log-box {
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 14px;
-      font-family: monospace;
-      font-size: 12px;
-      height: 200px;
-      overflow-y: auto;
-      color: #38bdf8;
+    .status-content {
+      padding: 10px 0;
     }
 
-    .log-entry {
-      margin-bottom: 6px;
-      word-break: break-all;
+    .status-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #4ade80;
+      margin-bottom: 8px;
+      line-height: 1.4;
     }
 
-    .log-entry.error { color: #f87171; }
-    .log-entry.success { color: #4ade80; }
+    .status-text.error {
+      color: #f87171;
+    }
   </style>
 </head>
 <body>
@@ -362,17 +392,25 @@
       </div>
       <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
     </div>
+
+    <!-- PAGE STEP LOADING BERGERAK -->
+    <div id="stepLoading" class="loading-state hidden">
+      <div class="spinner"></div>
+      <div class="loading-text" id="loadingText">Memulai verifikasi akun...</div>
+    </div>
   </div>
 
-  <!-- POPUP OVERLAY MENGAMBANG -->
+  <!-- POPUP RESULT MENGAMBANG -->
   <div class="modal-overlay hidden" id="modalLog">
     <div class="modal-box">
       <div class="modal-header">
         <h3>Status Aktivasi</h3>
         <button class="close-btn" id="btnCloseModal">&times;</button>
       </div>
-      <div class="log-box" id="logBox"></div>
-      <button id="btnReset" class="btn btn-primary hidden" style="margin-top: 14px;">Kembali ke Awal</button>
+      <div class="status-content">
+        <div class="status-text" id="modalStatusText">> SUKSES: Fitur Premium Berhasil Diaktifkan!</div>
+      </div>
+      <button id="btnReset" class="btn btn-primary" style="margin-top: 16px;">Kembali ke Awal</button>
     </div>
   </div>
 
@@ -381,6 +419,8 @@
 
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
+    const stepLoading = document.getElementById('stepLoading');
+    const loadingText = document.getElementById('loadingText');
     
     const circle1 = document.getElementById('circle1');
     const circle2 = document.getElementById('circle2');
@@ -394,16 +434,8 @@
     
     const modalLog = document.getElementById('modalLog');
     const btnCloseModal = document.getElementById('btnCloseModal');
+    const modalStatusText = document.getElementById('modalStatusText');
     const btnReset = document.getElementById('btnReset');
-    const logBox = document.getElementById('logBox');
-
-    function log(message, type = 'normal') {
-      const entry = document.createElement('div');
-      entry.className = `log-entry ${type}`;
-      entry.innerText = `> ${message}`;
-      logBox.appendChild(entry);
-      logBox.scrollTop = logBox.scrollHeight;
-    }
 
     // STEP 1: Send Magic Link
     btnSend.addEventListener('click', async () => {
@@ -456,12 +488,15 @@
         return;
       }
 
-      // Tampilkan Pop-up Mengambang
-      modalLog.classList.remove('hidden');
-      logBox.innerHTML = '';
-      btnReset.classList.add('hidden');
+      // Tampilkan animasi loading di card
+      step2.classList.add('hidden');
+      stepLoading.classList.remove('hidden');
+      circle2.classList.remove('active');
+      circle2.classList.add('completed');
+      circle3.classList.add('active');
+      stepDescription.innerText = 'Langkah 3: Proses Mengaktifkan Premium';
 
-      log('Memulai verifikasi akun...');
+      loadingText.innerText = 'Memulai verifikasi akun...';
 
       try {
         const verifyRes = await fetch(API_URL, {
@@ -481,8 +516,8 @@
           throw new Error('idToken tidak ditemukan!');
         }
 
-        log('Verifikasi berhasil!', 'success');
-        log('Mengirim perintah Premium ke server...');
+        // Ubah teks bergerak saat verifikasi selesai & mau kirim ke server
+        loadingText.innerText = 'Mengirim perintah Premium ke server...';
 
         const premRes = await fetch(API_URL, {
           method: 'POST',
@@ -493,21 +528,24 @@
         const premData = await premRes.json();
         
         if (premData.success) {
-          circle2.classList.remove('active');
-          circle2.classList.add('completed');
+          circle3.classList.remove('active');
           circle3.classList.add('completed');
           stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
-          
-          log('SUKSES: Fitur Premium Berhasil Diaktifkan!', 'success');
-          log(JSON.stringify(premData), 'success');
+
+          // TAMPILKAN POPUP SUKSES (Hanya Teks Sukses, JSON Dihide)
+          modalStatusText.className = 'status-text';
+          modalStatusText.innerText = '> SUKSES: Fitur Premium Berhasil Diaktifkan!';
+          modalLog.classList.remove('hidden');
         } else {
-          log(`Gagal Aktivasi: ${premData.message || 'Terjadi kesalahan'}`, 'error');
+          throw new Error(premData.message || 'Aktivasi premium gagal');
         }
 
       } catch (err) {
-        log(`Error: ${err.message}`, 'error');
+        modalStatusText.className = 'status-text error';
+        modalStatusText.innerText = `> Gagal: ${err.message}`;
+        modalLog.classList.remove('hidden');
       } finally {
-        btnReset.classList.remove('hidden');
+        stepLoading.classList.add('hidden');
       }
     });
 
@@ -519,6 +557,7 @@
     // Reset Form untuk Ulangi Awal
     btnReset.addEventListener('click', () => {
       modalLog.classList.add('hidden');
+      stepLoading.classList.add('hidden');
       step2.classList.add('hidden');
       step1.classList.remove('hidden');
 
