@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZELAPI — Premium AM API</title>
+<style>
+:root{--orange:#ff5a00;--bg:#080808;--panel:#111;--line:#292929;--text:#f4f4f4;--muted:#9b9b9b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{height:92px;border-bottom:1px solid #222;display:flex;align-items:center;padding:0 28px;gap:28px;position:sticky;top:0;background:rgba(8,8,8,.96);z-index:2}
+.logo{font-size:31px;font-weight:800;letter-spacing:1px}.mark{font-size:28px;color:#aaa}
+.actions{margin-left:auto;display:flex;gap:14px;align-items:center;color:#aaa;font-size:27px}
+.btnicon{width:72px;height:64px;border:1px solid #303030;background:#151515;color:#ddd;font-size:25px}
+main{max-width:760px;margin:auto;padding:55px 28px 80px}
+h1{font-size:54px;margin:0 0 28px;letter-spacing:3px;font-family:monospace}
+.am{background:var(--orange);color:#050505;padding:3px 15px;display:inline-block;letter-spacing:0}
+p{font-size:24px;line-height:1.8;color:#aaa;margin:0 0 38px}
+strong{color:#eee}.cards{display:grid;gap:22px}
+.card{border:1px solid var(--line);background:#101010;padding:30px}
+.method{display:inline-block;background:var(--orange);color:#080808;font-weight:800;padding:10px 20px;margin-bottom:20px}
+.endpoint{font:700 20px monospace;letter-spacing:.5px}
+.notice{margin-top:100px;background:var(--orange);color:#080808;padding:38px;font:700 22px/1.6 monospace}
+.notice span{background:#080808;color:var(--orange);padding:2px 8px}
+footer{text-align:center;color:#666;padding:25px;border-top:1px solid #222}
+@media(max-width:600px){header{height:72px;padding:0 20px}.logo{font-size:24px}main{padding:42px 26px 60px}h1{font-size:40px}p{font-size:20px}.card{padding:26px}.notice{margin-top:70px;padding:28px 22px;font-size:17px}.endpoint{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">◧</div><div class="logo">ZELAPI</div>
+  <div class="actions"><button class="btnicon">▢</button><span>☾</span></div>
+</header>
+
+<main>
+  <h1>Premium <span class="am">AM</span>.</h1>
+  <p>Create a <strong>1-year</strong> Alight Motion Premium account in 2 steps — send a verification link to the email, then submit the copied URL. Available on the <strong>PRO, ENTERPRISE &amp; ULTRA PREMIUM</strong> plans.</p>
+
+  <section class="cards">
+    <div class="card"><div class="method">POST</div><div class="endpoint">/api/v1/premium/send</div></div>
+    <div class="card"><div class="method">POST</div><div class="endpoint">/api/v1/premium/verif</div></div>
+    <div class="card"><div class="method">POST</div><div class="endpoint">/api/v1/premium/bulk</div></div>
+  </section>
+
+  <div class="notice">⚠<br><br>Available on the <span>PRO</span>, <span>ENTERPRISE</span> &amp; <span>ULTRA PREMIUM</span> plans.</div>
+</main>
+<footer>ZELAPI • API Documentation</footer>
+</body>
+</html>
