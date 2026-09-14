@@ -1,694 +1,169 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AM Premium</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  min-height:100vh;
-  background:#08080d;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  padding:20px;
-}
-
-.container{
-  width:100%;
-  max-width:520px;
-  margin:auto;
-}
-
-/* HEADER */
-
-.header{
-  text-align:center;
-  padding:35px 10px 25px;
-}
-
-.logo{
-  width:72px;
-  height:72px;
-  margin:auto;
-  border-radius:22px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:linear-gradient(
-    135deg,
-    #8b5cf6,
-    #3b82f6
-  );
-
-  font-size:25px;
-  font-weight:800;
-
-  box-shadow:
-    0 15px 40px rgba(99,102,241,.3);
-}
-
-.header h1{
-  margin-top:20px;
-  font-size:30px;
-}
-
-.header p{
-  margin-top:8px;
-  color:#8f8f9d;
-  font-size:14px;
-}
-
-/* CARD */
-
-.card{
-  background:#12121a;
-  border:1px solid #282834;
-  border-radius:20px;
-  padding:24px;
-  margin-top:18px;
-}
-
-.card-title{
-  font-size:20px;
-  font-weight:700;
-  margin-bottom:7px;
-}
-
-.card-desc{
-  color:#858592;
-  font-size:14px;
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-/* INPUT */
-
-label{
-  display:block;
-  color:#b4b4c0;
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-input{
-  width:100%;
-  height:50px;
-
-  background:#09090f;
-  border:1px solid #30303d;
-  border-radius:12px;
-
-  color:#fff;
-  padding:0 15px;
-  font-size:15px;
-  outline:none;
-
-  margin-bottom:15px;
-}
-
-input:focus{
-  border-color:#7657ff;
-}
-
-/* BUTTON */
-
-button{
-  width:100%;
-  height:50px;
-
-  border:0;
-  border-radius:12px;
-
-  background:linear-gradient(
-    135deg,
-    #7c3aed,
-    #2563eb
-  );
-
-  color:white;
-  font-size:15px;
-  font-weight:700;
-
-  cursor:pointer;
-}
-
-button:active{
-  transform:scale(.98);
-}
-
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-/* STATUS */
-
-.status{
-  display:none;
-
-  margin-top:15px;
-  padding:14px;
-
-  border-radius:12px;
-
-  background:#0a0a10;
-  border:1px solid #252532;
-
-  color:#aaa;
-  font-size:13px;
-  line-height:1.5;
-
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-
-/* PRICE */
-
-.price{
-  font-size:28px;
-  font-weight:800;
-  margin:8px 0 20px;
-}
-
-.features{
-  list-style:none;
-  margin-bottom:20px;
-}
-
-.features li{
-  color:#aaa;
-  font-size:14px;
-  margin:10px 0;
-}
-
-.features li::before{
-  content:"✓";
-  color:#8b5cf6;
-  font-weight:bold;
-  margin-right:8px;
-}
-
-/* FOOTER */
-
-footer{
-  text-align:center;
-  color:#555;
-  font-size:12px;
-  padding:30px 0;
-}
-
-/* MOBILE */
-
-@media(max-width:400px){
-
-  body{
-    padding:15px;
-  }
-
-  .header h1{
-    font-size:26px;
-  }
-
-  .card{
-    padding:20px;
-  }
-
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alight Motion Tools</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #38bdf8;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background-color: #0f172a;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus {
+      border-color: #38bdf8;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0284c7;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 5px;
+    }
+    button:hover {
+      background-color: #0369a1;
+    }
+    .log-box {
+      margin-top: 20px;
+      background: #090d16;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 150px;
+      overflow-y: auto;
+      color: #4ade80;
+    }
+  </style>
 </head>
-
-
 <body>
 
-<div class="container">
-
-
-  <!-- HEADER -->
-
-  <div class="header">
-
-    <div class="logo">
-      AM
-    </div>
-
-    <h1>
-      Premium Access
-    </h1>
-
-    <p>
-      Fast and simple premium service
-    </p>
-
-  </div>
-
-
-
-  <!-- PREMIUM CARD -->
-
   <div class="card">
-
-    <div class="card-title">
-      Premium 1 Tahun
+    <h2>Alight Tools</h2>
+    
+    <div class="form-group">
+      <label for="email">Email Account</label>
+      <input type="email" id="email" placeholder="masukkan email anda...">
     </div>
 
-    <div class="price">
-      Rp2.000
+    <button id="btnSend">1. Kirim Magic Link</button>
+
+    <div class="form-group" style="margin-top: 15px;">
+      <label for="magiclink">Raw Magic Link</label>
+      <input type="text" id="magiclink" placeholder="tempel magic link di sini...">
     </div>
 
-    <ul class="features">
+    <button id="btnProcess">2. Proses Akun</button>
 
-      <li>
-        Masa aktif 1 tahun
-      </li>
-
-      <li>
-        Proses melalui email
-      </li>
-
-      <li>
-        Verifikasi otomatis
-      </li>
-
-    </ul>
-
+    <div class="log-box" id="logs">Status log akan tampil di sini...</div>
   </div>
 
-
-
-  <!-- SEND LINK -->
-
-  <div class="card">
-
-    <div class="card-title">
-      01. Kirim Link
-    </div>
-
-    <div class="card-desc">
-      Masukkan email akun untuk mendapatkan
-      link sign-in.
-    </div>
-
-
-    <label for="email">
-      Email akun
-    </label>
-
-    <input
-      id="email"
-      type="email"
-      placeholder="contoh@gmail.com"
-      autocomplete="email"
-    >
-
-
-    <button
-      id="sendButton"
-      onclick="sendLink()"
-    >
-      Kirim Link
-    </button>
-
-
-    <div
-      id="sendStatus"
-      class="status"
-    ></div>
-
-  </div>
-
-
-
-  <!-- VERIFY -->
-
-  <div class="card">
-
-    <div class="card-title">
-      02. Verifikasi
-    </div>
-
-    <div class="card-desc">
-      Masukkan link yang kamu terima
-      melalui email.
-    </div>
-
-
-    <label for="verifyEmail">
-      Email akun
-    </label>
-
-    <input
-      id="verifyEmail"
-      type="email"
-      placeholder="contoh@gmail.com"
-    >
-
-
-    <label for="verifyLink">
-      Link verifikasi
-    </label>
-
-    <input
-      id="verifyLink"
-      type="url"
-      placeholder="Tempel link di sini"
-    >
-
-
-    <button
-      id="verifyButton"
-      onclick="verifyPremium()"
-    >
-      Verifikasi
-    </button>
-
-
-    <div
-      id="verifyStatus"
-      class="status"
-    ></div>
-
-  </div>
-
-
-
-  <footer>
-    © 2026 Premium Access
-  </footer>
-
-</div>
-
-
-
-<script>
-
-/*
-====================================================
-             KONFIGURASI API
-====================================================
-
-GANTI HANYA BAGIAN INI.
-
-Contoh:
-
-const API_BASE =
-  "https://api.domainkamu.com";
-
-const SEND_ENDPOINT =
-  "/alight-motion/send-link";
-
-const VERIFY_ENDPOINT =
-  "/alight-motion/verify-premium";
-
-====================================================
-*/
-
-
-const API_BASE =
-  "https://api.sansekai.my.id";
-
-
-const SEND_ENDPOINT =
-  "/alight-motion/send-link";
-
-
-const VERIFY_ENDPOINT =
-  "/alight-motion/verify-premium";
-
-
-
-/*
-====================================================
-             KIRIM LINK
-====================================================
-*/
-
-async function sendLink(){
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const button =
-    document.getElementById("sendButton");
-
-  const status =
-    document.getElementById("sendStatus");
-
-
-  if(!email){
-
-    showStatus(
-      status,
-      "Masukkan email terlebih dahulu."
-    );
-
-    return;
-  }
-
-
-  button.disabled = true;
-
-  button.textContent =
-    "Mengirim...";
-
-
-  showStatus(
-    status,
-    "Sedang mengirim request..."
-  );
-
-
-  try{
-
-    const url =
-      API_BASE +
-      SEND_ENDPOINT +
-      "?email=" +
-      encodeURIComponent(email);
-
-
-    const response =
-      await fetch(url, {
-        method:"GET"
-      });
-
-
-    const text =
-      await response.text();
-
-
-    if(response.ok){
-
-      showStatus(
-        status,
-        "✓ Berhasil\n\n" +
-        text
-      );
-
-      /*
-      Otomatis isi email di bagian verifikasi
-      */
-
-      document.getElementById(
-        "verifyEmail"
-      ).value = email;
-
-    }else{
-
-      showStatus(
-        status,
-        "Request gagal.\n\n" +
-        "HTTP " +
-        response.status +
-        "\n\n" +
-        text
-      );
-
+  <script>
+    const API_URL = 'https://anita-studio.netlify.app/.netlify/functions/amprem';
+    const logs = document.getElementById('logs');
+
+    function log(msg) {
+      logs.innerHTML += `<div>> ${msg}</div>`;
+      logs.scrollTop = logs.scrollHeight;
     }
 
+    document.getElementById('btnSend').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      if (!email) return alert('Email wajib diisi!');
 
-  }catch(error){
+      log('Sending Magic Link...');
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'send-magiclink', email })
+        });
+        const data = await res.json();
+        log(JSON.stringify(data));
+      } catch (err) {
+        log('Error: ' + err.message);
+      }
+    });
 
-    showStatus(
-      status,
-      "Tidak dapat terhubung ke API.\n\n" +
-      error.message +
-      "\n\n" +
-      "Pastikan API mengizinkan CORS."
-    );
+    document.getElementById('btnProcess').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const rawLink = document.getElementById('magiclink').value;
+      if (!email || !rawLink) return alert('Email dan Magic Link wajib diisi!');
 
-  }
+      log('Verifying Link...');
+      try {
+        const verifyRes = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'verify-account', email, rawLink })
+        });
+        const verifyData = await verifyRes.json();
+        log(JSON.stringify(verifyData));
 
+        const idToken = verifyData.idToken || verifyData.profile?.idToken;
+        if (!idToken) throw new Error('idToken tidak ditemukan!');
 
-  button.disabled = false;
-
-  button.textContent =
-    "Kirim Link";
-
-}
-
-
-
-/*
-====================================================
-             VERIFIKASI
-====================================================
-*/
-
-async function verifyPremium(){
-
-  const email =
-    document.getElementById(
-      "verifyEmail"
-    ).value.trim();
-
-
-  const link =
-    document.getElementById(
-      "verifyLink"
-    ).value.trim();
-
-
-  const button =
-    document.getElementById(
-      "verifyButton"
-    );
-
-
-  const status =
-    document.getElementById(
-      "verifyStatus"
-    );
-
-
-  if(!email){
-
-    showStatus(
-      status,
-      "Masukkan email terlebih dahulu."
-    );
-
-    return;
-  }
-
-
-  if(!link){
-
-    showStatus(
-      status,
-      "Masukkan link verifikasi."
-    );
-
-    return;
-  }
-
-
-  button.disabled = true;
-
-  button.textContent =
-    "Memverifikasi...";
-
-
-  showStatus(
-    status,
-    "Sedang memproses..."
-  );
-
-
-  try{
-
-    const url =
-      API_BASE +
-      VERIFY_ENDPOINT +
-      "?email=" +
-      encodeURIComponent(email) +
-      "&tautan=" +
-      encodeURIComponent(link);
-
-
-    const response =
-      await fetch(url, {
-        method:"GET"
-      });
-
-
-    const text =
-      await response.text();
-
-
-    if(response.ok){
-
-      showStatus(
-        status,
-        "✓ Berhasil\n\n" +
-        text
-      );
-
-    }else{
-
-      showStatus(
-        status,
-        "Verifikasi gagal.\n\n" +
-        "HTTP " +
-        response.status +
-        "\n\n" +
-        text
-      );
-
-    }
-
-
-  }catch(error){
-
-    showStatus(
-      status,
-      "Tidak dapat terhubung ke API.\n\n" +
-      error.message +
-      "\n\n" +
-      "Pastikan API mengizinkan CORS."
-    );
-
-  }
-
-
-  button.disabled = false;
-
-  button.textContent =
-    "Verifikasi";
-
-}
-
-
-
-/*
-====================================================
-             STATUS
-====================================================
-*/
-
-function showStatus(
-  element,
-  message
-){
-
-  element.style.display =
-    "block";
-
-  element.textContent =
-    message;
-
-}
-
-</script>
+        log('Applying Premium...');
+        const premRes = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'apply-premium', email, idToken })
+        });
+        const premData = await premRes.json();
+        log(JSON.stringify(premData));
+      } catch (err) {
+        log('Error: ' + err.message);
+      }
+    });
+  </script>
 
 </body>
 </html>
