@@ -183,7 +183,6 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
-    /* Instructions Box */
     .info-box {
       background: rgba(255, 255, 255, 0.04);
       border-left: 3px solid #a855f7;
@@ -221,11 +220,6 @@
       box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
     }
 
-    .btn-success {
-      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
-    }
-
     .btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -236,19 +230,85 @@
       display: none !important;
     }
 
-    /* Terminal Status Box */
+    /* Modal Pop-up Mengambang */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      position: relative;
+      animation: popup 0.3s ease-out forwards;
+    }
+
+    @keyframes popup {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .modal-header h3 {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #94a3b8;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      background: rgba(239, 68, 68, 0.8);
+      color: #fff;
+    }
+
     .log-box {
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       padding: 14px;
       font-family: monospace;
       font-size: 12px;
-      min-height: 140px;
-      max-height: 200px;
+      height: 200px;
       overflow-y: auto;
       color: #38bdf8;
-      margin-bottom: 16px;
     }
 
     .log-entry {
@@ -267,14 +327,12 @@
   <div class="blob blob-3"></div>
 
   <div class="glass-card">
-    
-    <!-- Title & Deskripsi -->
     <div class="header">
       <h1>KALZ AM PREM</h1>
       <p id="stepDescription">Langkah 1: Masukkan email akun Alight Motion</p>
     </div>
 
-    <!-- Tracker Bulatan Angka (1 - 2 - 3) -->
+    <!-- Tracker Bulatan Angka -->
     <div class="step-tracker">
       <div class="step-circle active" id="circle1">1</div>
       <div class="step-circle" id="circle2">2</div>
@@ -296,7 +354,7 @@
     <!-- PAGE STEP 2: RAW MAGIC LINK -->
     <div id="step2" class="hidden">
       <div class="info-box">
-        Buka kotak masuk email kamu, klik kanan/tahan tautan tombol dari Alight Motion, salin (copy), lalu tempelkan kodenya di bawah ini.
+        Buka email kamu, tahan tombol dari Alight Motion, salin tautannya, lalu tempelkan di bawah ini.
       </div>
       <div class="form-group">
         <label for="rawLink">Raw Magic Link</label>
@@ -304,13 +362,18 @@
       </div>
       <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
     </div>
+  </div>
 
-    <!-- PAGE STEP 3: PROSES AKA PREMIUM -->
-    <div id="step3" class="hidden">
+  <!-- POPUP OVERLAY MENGAMBANG -->
+  <div class="modal-overlay hidden" id="modalLog">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Status Aktivasi</h3>
+        <button class="close-btn" id="btnCloseModal">&times;</button>
+      </div>
       <div class="log-box" id="logBox"></div>
-      <button id="btnReset" class="btn btn-success hidden">Aktivasi Selesai! Ulangi Lagi</button>
+      <button id="btnReset" class="btn btn-primary hidden" style="margin-top: 14px;">Kembali ke Awal</button>
     </div>
-
   </div>
 
   <script>
@@ -318,7 +381,6 @@
 
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
     
     const circle1 = document.getElementById('circle1');
     const circle2 = document.getElementById('circle2');
@@ -329,6 +391,9 @@
     const rawLinkInput = document.getElementById('rawLink');
     const btnSend = document.getElementById('btnSend');
     const btnProcess = document.getElementById('btnProcess');
+    
+    const modalLog = document.getElementById('modalLog');
+    const btnCloseModal = document.getElementById('btnCloseModal');
     const btnReset = document.getElementById('btnReset');
     const logBox = document.getElementById('logBox');
 
@@ -361,7 +426,6 @@
         const data = await response.json();
         
         if (data.success) {
-          // Pindah Tampilan ke Step 2
           step1.classList.add('hidden');
           step2.classList.remove('hidden');
           
@@ -392,17 +456,11 @@
         return;
       }
 
-      // Pindah Tampilan ke Step 3
-      step2.classList.add('hidden');
-      step3.classList.remove('hidden');
-
-      circle2.classList.remove('active');
-      circle2.classList.add('completed');
-      circle3.classList.add('active');
-
-      stepDescription.innerText = 'Langkah 3: Mengaktifkan Status Premium';
-
+      // Tampilkan Pop-up Mengambang
+      modalLog.classList.remove('hidden');
       logBox.innerHTML = '';
+      btnReset.classList.add('hidden');
+
       log('Memulai verifikasi akun...');
 
       try {
@@ -435,7 +493,8 @@
         const premData = await premRes.json();
         
         if (premData.success) {
-          circle3.classList.remove('active');
+          circle2.classList.remove('active');
+          circle2.classList.add('completed');
           circle3.classList.add('completed');
           stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
           
@@ -452,9 +511,15 @@
       }
     });
 
-    // Reset Form
+    // Tutup Pop-up
+    btnCloseModal.addEventListener('click', () => {
+      modalLog.classList.add('hidden');
+    });
+
+    // Reset Form untuk Ulangi Awal
     btnReset.addEventListener('click', () => {
-      step3.classList.add('hidden');
+      modalLog.classList.add('hidden');
+      step2.classList.add('hidden');
       step1.classList.remove('hidden');
 
       circle1.className = 'step-circle active';
@@ -467,7 +532,6 @@
       btnSend.innerText = 'Kirim Magic Link';
       btnProcess.disabled = false;
       btnProcess.innerText = 'Proses Aktivasi Premium';
-      btnReset.classList.add('hidden');
 
       emailInput.value = '';
       rawLinkInput.value = '';
