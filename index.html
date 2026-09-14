@@ -185,6 +185,20 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
+    /* Teks Error di Bawah Kolom Input */
+    .error-text {
+      color: #f87171;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 6px;
+      display: block;
+    }
+
+    input.input-error {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3) !important;
+    }
+
     .info-box {
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
       border-left: 3px solid #ffffff;
@@ -416,6 +430,7 @@
       <div class="form-group">
         <label for="email">Alamat Email</label>
         <input type="email" id="email" placeholder="contoh@gmail.com" required>
+        <span class="error-text hidden" id="emailError">mohon masukan email terlebih dahulu</span>
       </div>
       <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
     </div>
@@ -428,6 +443,7 @@
       <div class="form-group">
         <label for="rawLink">Raw Magic Link</label>
         <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
+        <span class="error-text hidden" id="linkError">mohon masukan link yang dikirim ke email mu</span>
       </div>
       <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
     </div>
@@ -487,6 +503,9 @@
 
     const emailInput = document.getElementById('email');
     const rawLinkInput = document.getElementById('rawLink');
+    const emailError = document.getElementById('emailError');
+    const linkError = document.getElementById('linkError');
+
     const btnSend = document.getElementById('btnSend');
     const btnProcess = document.getElementById('btnProcess');
     const btnHome = document.getElementById('btnHome');
@@ -500,6 +519,17 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalSubtitle = document.getElementById('modalSubtitle');
     const btnReset = document.getElementById('btnReset');
+
+    // Hilangkan error saat user mengetik
+    emailInput.addEventListener('input', () => {
+      emailInput.classList.remove('input-error');
+      emailError.classList.add('hidden');
+    });
+
+    rawLinkInput.addEventListener('input', () => {
+      rawLinkInput.classList.remove('input-error');
+      linkError.classList.add('hidden');
+    });
 
     // Fungsi Reset Form Kembali ke Halaman Awal
     function resetToHome() {
@@ -522,13 +552,18 @@
 
       emailInput.value = '';
       rawLinkInput.value = '';
+      emailInput.classList.remove('input-error');
+      emailError.classList.add('hidden');
+      rawLinkInput.classList.remove('input-error');
+      linkError.classList.add('hidden');
     }
 
     // STEP 1: Send Magic Link
     btnSend.addEventListener('click', async () => {
       const email = emailInput.value.trim();
       if (!email) {
-        alert('mohon masukan email terlebih dahulu');
+        emailInput.classList.add('input-error');
+        emailError.classList.remove('hidden');
         return;
       }
 
@@ -571,7 +606,8 @@
       const rawLink = rawLinkInput.value.trim();
 
       if (!rawLink) {
-        alert('mohon masukan link yang dikirim ke email mu');
+        rawLinkInput.classList.add('input-error');
+        linkError.classList.remove('hidden');
         return;
       }
 
