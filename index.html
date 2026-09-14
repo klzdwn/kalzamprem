@@ -24,7 +24,7 @@
       position: relative;
     }
 
-    /* Efek Bola Cahaya Background */
+    /* Efek Background Glow */
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -47,15 +47,6 @@
       background: rgba(59, 130, 246, 0.45);
       bottom: 15%;
       right: 15%;
-    }
-
-    .blob-3 {
-      width: 200px;
-      height: 200px;
-      background: rgba(236, 72, 153, 0.35);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
     }
 
     @keyframes float {
@@ -96,7 +87,7 @@
       margin-top: 6px;
     }
 
-    /* Step Indicator Bar */
+    /* Step Tracker */
     .step-tracker {
       display: flex;
       justify-content: space-between;
@@ -130,7 +121,6 @@
       font-weight: 700;
       position: relative;
       z-index: 1;
-      transition: all 0.3s ease;
     }
 
     .step-circle.active {
@@ -140,16 +130,7 @@
       box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
     }
 
-    .step-circle.completed {
-      background: #22c55e;
-      border-color: #4ade80;
-      color: #fff;
-    }
-
-    /* Form UI */
-    .form-group {
-      margin-bottom: 18px;
-    }
+    .form-group { margin-bottom: 18px; }
 
     label {
       display: block;
@@ -158,7 +139,6 @@
       font-weight: 600;
       margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     input {
@@ -170,17 +150,6 @@
       color: #fff;
       font-size: 14px;
       outline: none;
-      transition: all 0.3s ease;
-    }
-
-    input::placeholder {
-      color: #64748b;
-    }
-
-    input:focus {
-      border-color: rgba(168, 85, 247, 0.8);
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
-      background: rgba(255, 255, 255, 0.09);
     }
 
     .info-box {
@@ -191,7 +160,6 @@
       font-size: 12px;
       color: #cbd5e1;
       margin-bottom: 18px;
-      line-height: 1.5;
     }
 
     .btn {
@@ -203,79 +171,18 @@
       font-weight: 600;
       color: #fff;
       cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
       background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
       box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
     }
 
-    .btn-secondary {
-      background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* Loading Spinner */
-    .loading-state {
-      text-align: center;
-      padding: 20px 0;
-    }
-
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-top: 4px solid #38bdf8;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 16px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loading-text {
-      color: #38bdf8;
-      font-size: 14px;
-      font-weight: 600;
-      animation: pulse 1.5s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-
-    /* POPUP MODAL MODERN RESULT */
+    /* OVERLAY MODAL */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(4, 7, 13, 0.8);
+      background: rgba(4, 7, 13, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 99;
@@ -285,138 +192,63 @@
       padding: 20px;
     }
 
-    .modal-card {
-      background: rgba(18, 24, 38, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+    .hidden { display: none !important; }
+
+    /* POPUP MUSIC PLAYER (PERSIS FOTO 3) */
+    .music-modal-card {
+      background: #111622;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 28px;
       width: 100%;
       max-width: 380px;
-      padding: 32px 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
       position: relative;
-      animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      text-align: center;
+      animation: modalPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes modalPop {
-      from { transform: scale(0.85) translateY(20px); opacity: 0; }
+      from { transform: scale(0.9) translateY(15px); opacity: 0; }
       to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
     .close-btn {
       position: absolute;
-      top: 18px;
-      right: 18px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
       color: #94a3b8;
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       font-size: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      z-index: 2;
     }
 
-    .close-btn:hover {
-      background: rgba(239, 68, 68, 0.2);
-      color: #ef4444;
-      border-color: rgba(239, 68, 68, 0.3);
-    }
-
-    .icon-box {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px auto;
-      position: relative;
-    }
-
-    .icon-box.success {
-      background: rgba(34, 197, 94, 0.15);
-      border: 2px solid rgba(74, 222, 128, 0.4);
-      color: #4ade80;
-      box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
-    }
-
-    .icon-box.error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 2px solid rgba(248, 113, 113, 0.4);
-      color: #f87171;
-      box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
-    }
-
-    .icon-box svg {
-      width: 36px;
-      height: 36px;
-    }
-
-    .modal-title {
-      color: #ffffff;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.3px;
-    }
-
-    .modal-subtitle {
-      color: #94a3b8;
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
-
-    .badge-status {
-      display: inline-block;
-      padding: 6px 16px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
-      border: 1px solid rgba(74, 222, 128, 0.3);
-      color: #4ade80;
-      font-size: 11px;
-      font-weight: 700;
-      border-radius: 20px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    /* MUSIC PLAYER POPUP UI (PERFECT FIT UNTUK FOTO 2) */
-    .music-modal-card {
-      background: rgba(20, 24, 33, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-      position: relative;
-      animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
+    /* Cover Art */
     .music-cover {
       width: 100%;
-      height: 200px;
-      border-radius: 16px;
+      height: 210px;
+      border-radius: 18px;
       object-fit: cover;
       margin-bottom: 16px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
 
     .now-playing-tag {
       font-size: 11px;
       font-weight: 700;
-      color: #94a3b8;
+      color: #38bdf8;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .now-playing-tag span {
@@ -438,23 +270,19 @@
     }
 
     .song-artist {
-      color: #94a3b8;
+      color: #64748b;
       font-size: 13px;
-      margin-top: 4px;
+      margin-top: 2px;
       text-align: left;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
-    .music-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    /* Slider Progress */
     .time-slider-container {
       display: flex;
       flex-direction: column;
       gap: 6px;
+      margin-bottom: 16px;
     }
 
     .time-slider {
@@ -462,6 +290,8 @@
       accent-color: #ffffff;
       height: 4px;
       cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
     }
 
     .time-labels {
@@ -469,14 +299,16 @@
       justify-content: space-between;
       color: #64748b;
       font-size: 11px;
+      font-weight: 500;
     }
 
+    /* Tombol-tombol Controls */
     .btn-controls-row {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 24px;
-      margin: 8px 0;
+      gap: 28px;
+      margin-bottom: 20px;
     }
 
     .btn-music-action {
@@ -495,39 +327,40 @@
     }
 
     .btn-play-main {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: #ffffff;
-      color: #000000;
+      color: #090d16;
       border: none;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: transform 0.2s;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s ease;
     }
 
     .btn-play-main:hover {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
 
+    /* Volume Slider */
     .volume-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       color: #64748b;
-      padding: 0 8px;
     }
 
     .volume-slider {
       width: 100%;
       accent-color: #38bdf8;
-      height: 3px;
+      height: 4px;
       cursor: pointer;
     }
 
-    /* BOTTOM NAVBAR STYLE (HOME DI TENGAH DENGAN STYLE KILAT/ROUND) */
+    /* BOTTOM NAVBAR DI TENGAH */
     .bottom-nav {
       position: fixed;
       bottom: 20px;
@@ -537,7 +370,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(18, 24, 38, 0.85);
+      background: rgba(18, 24, 38, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -550,7 +383,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       padding: 8px 14px;
       border-radius: 20px;
       color: #94a3b8;
@@ -559,7 +391,6 @@
       font-size: 10px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
       text-decoration: none;
       gap: 4px;
     }
@@ -572,11 +403,7 @@
       stroke-width: 2;
     }
 
-    .nav-item:hover {
-      color: #ffffff;
-    }
-
-    /* Tombol Beranda di Tengah (Circle Glow) */
+    /* Tombol Home Bulat Glow di Tengah */
     .nav-item-center {
       width: 44px;
       height: 44px;
@@ -590,11 +417,6 @@
       cursor: pointer;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
       margin: 0 6px;
-      transition: transform 0.2s ease;
-    }
-
-    .nav-item-center:hover {
-      transform: scale(1.08);
     }
 
     .nav-item-center svg {
@@ -610,142 +432,93 @@
 
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
 
   <div class="glass-card">
     <div class="header">
       <h1>KALZ AM PREM</h1>
-      <p id="stepDescription">Langkah 1: Masukkan email akun Alight Motion</p>
+      <p>Langkah 1: Masukkan email akun Alight Motion</p>
     </div>
 
-    <!-- Tracker Bulatan Angka -->
     <div class="step-tracker">
-      <div class="step-circle active" id="circle1">1</div>
-      <div class="step-circle" id="circle2">2</div>
-      <div class="step-circle" id="circle3">3</div>
+      <div class="step-circle active">1</div>
+      <div class="step-circle">2</div>
+      <div class="step-circle">3</div>
     </div>
 
-    <!-- PAGE STEP 1: EMAIL -->
-    <div id="step1">
+    <div>
       <div class="info-box">
         Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
       </div>
       <div class="form-group">
         <label for="email">Alamat Email</label>
-        <input type="email" id="email" placeholder="contoh@gmail.com" required>
+        <input type="email" id="email" placeholder="contoh@gmail.com">
       </div>
-      <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
-    </div>
-
-    <!-- PAGE STEP 2: RAW MAGIC LINK -->
-    <div id="step2" class="hidden">
-      <div class="info-box">
-        Buka email kamu, tahan tombol dari Alight Motion, salin tautannya, lalu tempelkan di bawah ini.
-      </div>
-      <div class="form-group">
-        <label for="rawLink">Raw Magic Link</label>
-        <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
-      </div>
-      <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
-    </div>
-
-    <!-- PAGE STEP 3: TOMBOL KEMBALI DI CARD -->
-    <div id="stepFinish" class="hidden">
-      <div class="info-box" style="text-align: center; border-left: none; border-top: 3px solid #22c55e;">
-        Proses telah selesai. Klik tombol di bawah untuk kembali ke tampilan awal.
-      </div>
-      <button id="btnHome" class="btn btn-success">Kembali ke Halaman Awal</button>
-    </div>
-
-    <!-- PAGE STEP LOADING BERGERAK -->
-    <div id="stepLoading" class="loading-state hidden">
-      <div class="spinner"></div>
-      <div class="loading-text" id="loadingText">Memulai verifikasi akun...</div>
+      <button class="btn">Kirim Magic Link</button>
     </div>
   </div>
 
-  <!-- POPUP RESULT MODERN -->
-  <div class="modal-overlay hidden" id="modalLog">
-    <div class="modal-card">
-      <button class="close-btn" id="btnCloseModal">&times;</button>
-      
-      <!-- Icon Box -->
-      <div class="icon-box success" id="modalIconBox">
-        <svg id="iconSuccess" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M4.5 12.75l6 6 9-13.5"></path>
-        </svg>
-        <svg id="iconError" class="hidden" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </div>
-
-      <div id="badgeStatus" class="badge-status">PREMIUM ACTIVE</div>
-      
-      <h3 class="modal-title" id="modalTitle">Aktivasi Berhasil!</h3>
-      <p class="modal-subtitle" id="modalSubtitle">Fitur Alight Motion Premium kamu sudah aktif dan siap digunakan secara penuh.</p>
-      
-      <button id="btnReset" class="btn btn-primary">Kembali ke Halaman Awal</button>
-    </div>
-  </div>
-
-  <!-- POPUP MUSIC PLAYER (PERSIS SEPERTI FOTO 2) -->
+  <!-- POPUP MUSIC PLAYER (PERSIS FOTO 3) -->
   <div class="modal-overlay hidden" id="modalMusic">
     <div class="music-modal-card">
       <button class="close-btn" id="btnCloseMusic">&times;</button>
 
-      <!-- Music Artwork Cover -->
-      <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=60" alt="Cover" class="music-cover">
+      <!-- Gambar Cover Lagu dari Spotify Playlist -->
+      <img id="musicCover" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=60" alt="Cover" class="music-cover">
 
       <div class="now-playing-tag">
         <span></span> NOW PLAYING
       </div>
 
-      <div class="song-title">Justin Bieber - Beauty And A Beat (Of...</div>
-      <div class="song-artist">Justin Bieber</div>
+      <div class="song-title" id="songTitle">Justin Bieber - Beauty And A Beat (Of...</div>
+      <div class="song-artist" id="songArtist">Justin Bieber</div>
 
-      <div class="music-controls">
-        <div class="time-slider-container">
-          <input type="range" class="time-slider" id="musicSeek" value="0" min="0" max="100">
-          <div class="time-labels">
-            <span id="currentTime">0:00</span>
-            <span id="totalTime">4:52</span>
-          </div>
+      <!-- Controls & Progress Bar -->
+      <div class="time-slider-container">
+        <input type="range" class="time-slider" id="musicSeek" value="0" min="0" max="100">
+        <div class="time-labels">
+          <span id="currentTime">0:09</span>
+          <span id="totalTime">6:12</span>
         </div>
+      </div>
 
-        <div class="btn-controls-row">
-          <button class="btn-music-action">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-          </button>
-          
-          <button class="btn-play-main" id="btnMusicPlay">
-            <svg id="playIcon" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="pauseIcon" class="hidden" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-          </button>
+      <div class="btn-controls-row">
+        <button class="btn-music-action" id="btnPrev">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        
+        <button class="btn-play-main" id="btnMusicPlay">
+          <svg id="playIcon" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" class="hidden" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
 
-          <button class="btn-music-action">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-          </button>
-        </div>
+        <button class="btn-music-action" id="btnNext">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+      </div>
 
-        <div class="volume-row">
-          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-          <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.8">
-        </div>
+      <div class="volume-row">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.8">
+      </div>
+
+      <!-- Integrasi Spotify Widget Embed (Opsional Jika Ingin Direct Spotify Stream) -->
+      <div id="spotifyEmbedContainer" class="hidden" style="margin-top: 15px;">
+        <iframe src="https://open.spotify.com/embed/playlist/4dWDoT3WBviqWbXK2aX8Rr?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius: 12px;"></iframe>
       </div>
     </div>
   </div>
 
-  <!-- Audio Player Background Element -->
+  <!-- Audio Player Source -->
   <audio id="bgAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
-  <!-- BOTTOM NAVIGATION MENU -->
+  <!-- BOTTOM NAVBAR (POSISI HOME DI TENGAH) -->
   <div class="bottom-nav">
-    <a href="https://wa.me/6281234567890" target="_blank" class="nav-item" id="navWA">
+    <a href="https://wa.me/6281234567890" target="_blank" class="nav-item">
       <svg viewBox="0 0 24 24"><path d="M3 21l1.9-5.7a8.5 8.5 0 113.8 3.8z"/></svg>
       <span>WHATSAPP</span>
     </a>
 
-    <!-- TOMBOL HOME DI TENGAH (ICON KILAT) -->
+    <!-- TOMBOL HOME DI TENGAH -->
     <button class="nav-item-center" id="navHome">
       <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     </button>
@@ -757,37 +530,24 @@
   </div>
 
   <script>
-    const API_URL = 'https://anita-studio.netlify.app/.netlify/functions/amprem';
+    // System Spotify Playlist Track List Contoh (Bisa Kamu Ubah MP3 Link-nya)
+    const playlist = [
+      {
+        title: "Justin Bieber - Beauty And A Beat",
+        artist: "Justin Bieber",
+        cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500&auto=format&fit=crop&q=60",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        title: "Spotify Playlist Song 2",
+        artist: "Artist Name",
+        cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=60",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      }
+    ];
 
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
-    const stepFinish = document.getElementById('stepFinish');
-    const stepLoading = document.getElementById('stepLoading');
-    const loadingText = document.getElementById('loadingText');
-    
-    const circle1 = document.getElementById('circle1');
-    const circle2 = document.getElementById('circle2');
-    const circle3 = document.getElementById('circle3');
-    const stepDescription = document.getElementById('stepDescription');
+    let currentTrack = 0;
 
-    const emailInput = document.getElementById('email');
-    const rawLinkInput = document.getElementById('rawLink');
-    const btnSend = document.getElementById('btnSend');
-    const btnProcess = document.getElementById('btnProcess');
-    const btnHome = document.getElementById('btnHome');
-    
-    const modalLog = document.getElementById('modalLog');
-    const btnCloseModal = document.getElementById('btnCloseModal');
-    const modalIconBox = document.getElementById('modalIconBox');
-    const iconSuccess = document.getElementById('iconSuccess');
-    const iconError = document.getElementById('iconError');
-    const badgeStatus = document.getElementById('badgeStatus');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
-    const btnReset = document.getElementById('btnReset');
-
-    // Bottom Nav & Music Elements
-    const navHome = document.getElementById('navHome');
     const navMusic = document.getElementById('navMusic');
     const modalMusic = document.getElementById('modalMusic');
     const btnCloseMusic = document.getElementById('btnCloseMusic');
@@ -799,33 +559,13 @@
     const currentTimeEl = document.getElementById('currentTime');
     const totalTimeEl = document.getElementById('totalTime');
     const volumeSlider = document.getElementById('volumeSlider');
+    const songTitle = document.getElementById('songTitle');
+    const songArtist = document.getElementById('songArtist');
+    const musicCover = document.getElementById('musicCover');
+    const btnNext = document.getElementById('btnNext');
+    const btnPrev = document.getElementById('btnPrev');
 
-    // Reset Form ke Halaman Awal
-    function resetToHome() {
-      modalLog.classList.add('hidden');
-      stepLoading.classList.add('hidden');
-      step2.classList.add('hidden');
-      stepFinish.classList.add('hidden');
-      step1.classList.remove('hidden');
-
-      circle1.className = 'step-circle active';
-      circle2.className = 'step-circle';
-      circle3.className = 'step-circle';
-
-      stepDescription.innerText = 'Langkah 1: Masukkan email akun Alight Motion';
-
-      btnSend.disabled = false;
-      btnSend.innerText = 'Kirim Magic Link';
-      btnProcess.disabled = false;
-      btnProcess.innerText = 'Proses Aktivasi Premium';
-
-      emailInput.value = '';
-      rawLinkInput.value = '';
-    }
-
-    navHome.addEventListener('click', resetToHome);
-
-    // MUSIC POPUP CONTROLS
+    // Buka / Tutup Popup Music Player
     navMusic.addEventListener('click', () => {
       modalMusic.classList.remove('hidden');
     });
@@ -834,6 +574,7 @@
       modalMusic.classList.add('hidden');
     });
 
+    // Play & Pause Logic
     btnMusicPlay.addEventListener('click', () => {
       if (bgAudio.paused) {
         bgAudio.play();
@@ -846,6 +587,7 @@
       }
     });
 
+    // Slider Progress Syncing
     bgAudio.addEventListener('timeupdate', () => {
       if (bgAudio.duration) {
         const progress = (bgAudio.currentTime / bgAudio.duration) * 100;
@@ -873,130 +615,27 @@
       bgAudio.volume = e.target.value;
     });
 
-    // STEP 1: Send Magic Link
-    btnSend.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      if (!email) {
-        alert('Harap masukkan email terlebih dahulu!');
-        return;
-      }
+    // Prev / Next Track Function
+    function loadTrack(index) {
+      const track = playlist[index];
+      songTitle.innerText = track.title;
+      songArtist.innerText = track.artist;
+      musicCover.src = track.cover;
+      bgAudio.src = track.src;
+      bgAudio.play();
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+    }
 
-      btnSend.disabled = true;
-      btnSend.innerText = 'Mengirim Magic Link...';
-
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'send-magiclink', email })
-        });
-
-        const data = await response.json();
-        
-        if (data.success) {
-          step1.classList.add('hidden');
-          step2.classList.remove('hidden');
-          
-          circle1.classList.remove('active');
-          circle1.classList.add('completed');
-          circle2.classList.add('active');
-
-          stepDescription.innerText = 'Langkah 2: Verifikasi Magic Link dari Email';
-        } else {
-          alert(data.message || 'Gagal mengirim magic link!');
-          btnSend.disabled = false;
-          btnSend.innerText = 'Kirim Magic Link';
-        }
-      } catch (err) {
-        alert(`Gagal terhubung ke API: ${err.message}`);
-        btnSend.disabled = false;
-        btnSend.innerText = 'Kirim Magic Link';
-      }
+    btnNext.addEventListener('click', () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
     });
 
-    // STEP 2: Verify & Apply Premium
-    btnProcess.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const rawLink = rawLinkInput.value.trim();
-
-      if (!rawLink) {
-        alert('Raw Magic Link wajib ditempel!');
-        return;
-      }
-
-      step2.classList.add('hidden');
-      stepLoading.classList.remove('hidden');
-      circle2.classList.remove('active');
-      circle2.classList.add('completed');
-      circle3.classList.add('active');
-      stepDescription.innerText = 'Langkah 3: Proses Mengaktifkan Premium';
-
-      loadingText.innerText = 'Memulai verifikasi akun...';
-
-      try {
-        const verifyRes = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'verify-account', email, rawLink })
-        });
-
-        const verifyData = await verifyRes.json();
-
-        if (!verifyData.success) {
-          throw new Error(verifyData.message || 'Verifikasi link gagal!');
-        }
-
-        const idToken = verifyData.idToken || verifyData.profile?.idToken;
-        if (!idToken) {
-          throw new Error('idToken tidak ditemukan!');
-        }
-
-        loadingText.innerText = 'Mengirim perintah Premium ke server...';
-
-        const premRes = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'apply-premium', email, idToken })
-        });
-
-        const premData = await premRes.json();
-        
-        if (premData.success) {
-          circle3.classList.remove('active');
-          circle3.classList.add('completed');
-          stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
-
-          modalIconBox.className = 'icon-box success';
-          iconSuccess.classList.remove('hidden');
-          iconError.classList.add('hidden');
-          badgeStatus.classList.remove('hidden');
-          modalTitle.innerText = 'Aktivasi Berhasil!';
-          modalSubtitle.innerText = 'Selamat, akun Alight Motion kamu sekarang sudah resmi berstatus Premium.';
-          modalLog.classList.remove('hidden');
-
-          stepFinish.classList.remove('hidden');
-        } else {
-          throw new Error(premData.message || 'Aktivasi premium gagal');
-        }
-
-      } catch (err) {
-        modalIconBox.className = 'icon-box error';
-        iconSuccess.classList.add('hidden');
-        iconError.classList.remove('hidden');
-        badgeStatus.classList.add('hidden');
-        modalTitle.innerText = 'Proses Gagal';
-        modalSubtitle.innerText = err.message || 'Terjadi kesalahan, silakan coba lagi.';
-        modalLog.classList.remove('hidden');
-
-        stepFinish.classList.remove('hidden');
-      } finally {
-        stepLoading.classList.add('hidden');
-      }
+    btnPrev.addEventListener('click', () => {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
     });
-
-    btnCloseModal.addEventListener('click', resetToHome);
-    btnReset.addEventListener('click', resetToHome);
-    btnHome.addEventListener('click', resetToHome);
   </script>
 </body>
 </html>
