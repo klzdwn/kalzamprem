@@ -24,7 +24,7 @@
       position: relative;
     }
 
-    /* Efek Bola Cahaya */
+    /* Efek Bola Cahaya Background */
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -63,7 +63,7 @@
       100% { transform: translateY(-30px) scale(1.1); }
     }
 
-    /* Card Glassmorphism */
+    /* Card Utama */
     .glass-card {
       position: relative;
       z-index: 1;
@@ -80,7 +80,7 @@
 
     .header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .header h1 {
@@ -96,6 +96,57 @@
       margin-top: 6px;
     }
 
+    /* Step Indicator Bar */
+    .step-tracker {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .step-tracker::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 0;
+      transform: translateY(-50%);
+    }
+
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .step-circle.active {
+      background: #a855f7;
+      border-color: #c084fc;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+    }
+
+    .step-circle.completed {
+      background: #22c55e;
+      border-color: #4ade80;
+      color: #fff;
+    }
+
+    /* Form UI */
     .form-group {
       margin-bottom: 18px;
     }
@@ -132,6 +183,18 @@
       background: rgba(255, 255, 255, 0.09);
     }
 
+    /* Instructions Box */
+    .info-box {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 3px solid #a855f7;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
     .btn {
       width: 100%;
       padding: 14px;
@@ -153,14 +216,14 @@
       box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
     }
 
-    .btn-primary:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
     .btn-secondary {
       background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
       box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
     }
 
     .btn:disabled {
@@ -173,33 +236,28 @@
       display: none !important;
     }
 
-    /* Full Page Terminal/Log Box (Step 3) */
+    /* Terminal Status Box */
     .log-box {
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 14px;
       font-family: monospace;
-      font-size: 13px;
-      min-height: 200px;
-      max-height: 300px;
+      font-size: 12px;
+      min-height: 140px;
+      max-height: 200px;
       overflow-y: auto;
       color: #38bdf8;
+      margin-bottom: 16px;
     }
 
     .log-entry {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       word-break: break-all;
-      line-height: 1.4;
     }
 
-    .log-entry.error {
-      color: #f87171;
-    }
-
-    .log-entry.success {
-      color: #4ade80;
-    }
+    .log-entry.error { color: #f87171; }
+    .log-entry.success { color: #4ade80; }
   </style>
 </head>
 <body>
@@ -209,34 +267,50 @@
   <div class="blob blob-3"></div>
 
   <div class="glass-card">
+    
+    <!-- Title & Deskripsi -->
     <div class="header">
-      <h1 id="pageTitle">KALZ AM PREM</h1>
-      <p id="pageDesc">Masukan email dan verifikasi magic link kamu</p>
+      <h1>KALZ AM PREM</h1>
+      <p id="stepDescription">Langkah 1: Masukkan email akun Alight Motion</p>
     </div>
 
-    <!-- PAGE 1: EMAIL -->
+    <!-- Tracker Bulatan Angka (1 - 2 - 3) -->
+    <div class="step-tracker">
+      <div class="step-circle active" id="circle1">1</div>
+      <div class="step-circle" id="circle2">2</div>
+      <div class="step-circle" id="circle3">3</div>
+    </div>
+
+    <!-- PAGE STEP 1: EMAIL -->
     <div id="step1">
+      <div class="info-box">
+        Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
+      </div>
       <div class="form-group">
-        <label for="email">1. ALAMAT EMAIL</label>
+        <label for="email">Alamat Email</label>
         <input type="email" id="email" placeholder="contoh@gmail.com" required>
       </div>
       <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
     </div>
 
-    <!-- PAGE 2: MAGIC LINK -->
+    <!-- PAGE STEP 2: RAW MAGIC LINK -->
     <div id="step2" class="hidden">
-      <div class="form-group">
-        <label for="rawLink">2. RAW MAGIC LINK</label>
-        <input type="text" id="rawLink" placeholder="Tempel magic link dari email...">
+      <div class="info-box">
+        Buka kotak masuk email kamu, klik kanan/tahan tautan tombol dari Alight Motion, salin (copy), lalu tempelkan kodenya di bawah ini.
       </div>
-      <button id="btnProcess" class="btn btn-secondary">Proses Premium</button>
+      <div class="form-group">
+        <label for="rawLink">Raw Magic Link</label>
+        <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
+      </div>
+      <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
     </div>
 
-    <!-- PAGE 3: STATUS PROCESS LOG -->
+    <!-- PAGE STEP 3: PROSES AKA PREMIUM -->
     <div id="step3" class="hidden">
       <div class="log-box" id="logBox"></div>
-      <button id="btnReset" class="btn btn-primary" style="margin-top: 16px;">Kembali ke Awal</button>
+      <button id="btnReset" class="btn btn-success hidden">Aktivasi Selesai! Ulangi Lagi</button>
     </div>
+
   </div>
 
   <script>
@@ -246,8 +320,10 @@
     const step2 = document.getElementById('step2');
     const step3 = document.getElementById('step3');
     
-    const pageTitle = document.getElementById('pageTitle');
-    const pageDesc = document.getElementById('pageDesc');
+    const circle1 = document.getElementById('circle1');
+    const circle2 = document.getElementById('circle2');
+    const circle3 = document.getElementById('circle3');
+    const stepDescription = document.getElementById('stepDescription');
 
     const emailInput = document.getElementById('email');
     const rawLinkInput = document.getElementById('rawLink');
@@ -264,7 +340,7 @@
       logBox.scrollTop = logBox.scrollHeight;
     }
 
-    // Step 1: Kirim Magic Link
+    // STEP 1: Send Magic Link
     btnSend.addEventListener('click', async () => {
       const email = emailInput.value.trim();
       if (!email) {
@@ -273,7 +349,7 @@
       }
 
       btnSend.disabled = true;
-      btnSend.innerText = 'Mengirim...';
+      btnSend.innerText = 'Mengirim Magic Link...';
 
       try {
         const response = await fetch(API_URL, {
@@ -285,11 +361,17 @@
         const data = await response.json();
         
         if (data.success) {
+          // Pindah Tampilan ke Step 2
           step1.classList.add('hidden');
           step2.classList.remove('hidden');
-          pageDesc.innerText = 'Tempel tautan verifikasi yang ada di email kamu';
+          
+          circle1.classList.remove('active');
+          circle1.classList.add('completed');
+          circle2.classList.add('active');
+
+          stepDescription.innerText = 'Langkah 2: Verifikasi Magic Link dari Email';
         } else {
-          alert(data.message || 'Gagal mengirim magic link');
+          alert(data.message || 'Gagal mengirim magic link!');
           btnSend.disabled = false;
           btnSend.innerText = 'Kirim Magic Link';
         }
@@ -300,24 +382,28 @@
       }
     });
 
-    // Step 2: Verifikasi & Apply Premium
+    // STEP 2: Verify & Apply Premium
     btnProcess.addEventListener('click', async () => {
       const email = emailInput.value.trim();
       const rawLink = rawLinkInput.value.trim();
 
       if (!rawLink) {
-        alert('Raw Magic Link wajib diisi!');
+        alert('Raw Magic Link wajib ditempel!');
         return;
       }
 
-      // Pindah ke Page 3 (Status Page)
+      // Pindah Tampilan ke Step 3
       step2.classList.add('hidden');
       step3.classList.remove('hidden');
-      pageTitle.innerText = 'STATUS PROSES';
-      pageDesc.innerText = 'Mohon tunggu hingga proses aktivasi selesai';
+
+      circle2.classList.remove('active');
+      circle2.classList.add('completed');
+      circle3.classList.add('active');
+
+      stepDescription.innerText = 'Langkah 3: Mengaktifkan Status Premium';
 
       logBox.innerHTML = '';
-      log('Memulai verifikasi tautan...');
+      log('Memulai verifikasi akun...');
 
       try {
         const verifyRes = await fetch(API_URL, {
@@ -329,16 +415,16 @@
         const verifyData = await verifyRes.json();
 
         if (!verifyData.success) {
-          throw new Error(verifyData.message || 'Verifikasi gagal');
+          throw new Error(verifyData.message || 'Verifikasi link gagal!');
         }
 
         const idToken = verifyData.idToken || verifyData.profile?.idToken;
         if (!idToken) {
-          throw new Error('idToken tidak ditemukan dari hasil verifikasi');
+          throw new Error('idToken tidak ditemukan!');
         }
 
         log('Verifikasi berhasil!', 'success');
-        log('Mengaktifkan status premium...');
+        log('Mengirim perintah Premium ke server...');
 
         const premRes = await fetch(API_URL, {
           method: 'POST',
@@ -349,7 +435,11 @@
         const premData = await premRes.json();
         
         if (premData.success) {
-          log('Aktivasi Premium Berhasil!', 'success');
+          circle3.classList.remove('active');
+          circle3.classList.add('completed');
+          stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
+          
+          log('SUKSES: Fitur Premium Berhasil Diaktifkan!', 'success');
           log(JSON.stringify(premData), 'success');
         } else {
           log(`Gagal Aktivasi: ${premData.message || 'Terjadi kesalahan'}`, 'error');
@@ -357,22 +447,28 @@
 
       } catch (err) {
         log(`Error: ${err.message}`, 'error');
+      } finally {
+        btnReset.classList.remove('hidden');
       }
     });
 
-    // Reset tombol untuk kembali ke Page 1
+    // Reset Form
     btnReset.addEventListener('click', () => {
       step3.classList.add('hidden');
       step1.classList.remove('hidden');
-      
-      pageTitle.innerText = 'KALZ AM PREM';
-      pageDesc.innerText = 'Masukan email dan verifikasi magic link kamu';
-      
+
+      circle1.className = 'step-circle active';
+      circle2.className = 'step-circle';
+      circle3.className = 'step-circle';
+
+      stepDescription.innerText = 'Langkah 1: Masukkan email akun Alight Motion';
+
       btnSend.disabled = false;
       btnSend.innerText = 'Kirim Magic Link';
       btnProcess.disabled = false;
-      btnProcess.innerText = 'Proses Premium';
-      
+      btnProcess.innerText = 'Proses Aktivasi Premium';
+      btnReset.classList.add('hidden');
+
       emailInput.value = '';
       rawLinkInput.value = '';
     });
