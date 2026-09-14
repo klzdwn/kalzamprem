@@ -123,6 +123,7 @@
       font-weight: 700;
       position: relative;
       z-index: 1;
+      transition: all 0.3s ease;
     }
 
     .step-circle.active {
@@ -130,6 +131,20 @@
       border-color: #ffffff;
       color: #000000;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .form-step.active-step {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .form-group { margin-bottom: 8px; }
@@ -161,7 +176,6 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
     }
 
-    /* Pesan Error & Sukses dalam Card */
     .error-msg {
       color: #f87171;
       font-size: 12px;
@@ -172,26 +186,6 @@
       gap: 6px;
     }
 
-    .success-msg {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: #4ade80;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 12px;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .info-box {
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
       border-left: 3px solid #ffffff;
@@ -200,6 +194,13 @@
       font-size: 12px;
       color: #a1a1aa;
       margin-bottom: 18px;
+    }
+
+    .user-email-badge {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 700;
+      word-break: break-all;
     }
 
     .btn {
@@ -222,7 +223,20 @@
       box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
     }
 
-    /* OVERLAY MODAL MUSIK */
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      box-shadow: none;
+      margin-top: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    /* OVERLAY MODAL */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -373,16 +387,18 @@
   <div class="glass-card">
     <div class="header">
       <h1>KALZ AM PREM</h1>
-      <p>Langkah 1: Masukkan email akun Alight Motion</p>
+      <p id="stepSubtitle">Langkah 1: Masukkan email akun Alight Motion</p>
     </div>
 
+    <!-- TRACKER STEP (1, 2, 3) -->
     <div class="step-tracker">
-      <div class="step-circle active">1</div>
-      <div class="step-circle">2</div>
-      <div class="step-circle">3</div>
+      <div class="step-circle active" id="circleStep1">1</div>
+      <div class="step-circle" id="circleStep2">2</div>
+      <div class="step-circle" id="circleStep3">3</div>
     </div>
 
-    <div>
+    <!-- STEP 1: MASUKKAN EMAIL -->
+    <div class="form-step active-step" id="step1">
       <div class="info-box">
         Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
       </div>
@@ -392,16 +408,32 @@
         <input type="email" id="email" placeholder="contoh@gmail.com">
       </div>
       
-      <!-- PESAN ERROR & SUKSES ELEGANKU -->
       <div class="error-msg" id="errorMsg">
         ⚠️ mohon masukan email terlebih dahulu
       </div>
 
-      <div class="success-msg" id="successMsg">
-        ✓ Magic Link berhasil dikirim ke email kamu!
+      <button class="btn" id="btnStep1">Kirim Magic Link</button>
+    </div>
+
+    <!-- STEP 2: VERIFIKASI / CEK EMAIL -->
+    <div class="form-step" id="step2">
+      <div class="info-box">
+        Magic Link telah dikirim ke <span class="user-email-badge" id="displayEmail">email@domain.com</span>.<br><br>
+        Silakan buka kotak masuk email kamu dan klik/salin link verifikasi yang dikirimkan oleh Alight Motion.
       </div>
 
-      <button class="btn" id="btnSend">Kirim Magic Link</button>
+      <button class="btn" id="btnStep2">Saya Sudah Verifikasi / Lanjut</button>
+      <button class="btn btn-secondary" id="btnBackToStep1">Ganti Email</button>
+    </div>
+
+    <!-- STEP 3: SELESAI -->
+    <div class="form-step" id="step3">
+      <div class="info-box" style="border-left-color: #4ade80;">
+        🎉 <strong>Proses Berhasil!</strong><br><br>
+        Akun Alight Motion kamu telah terhubung dan status Premium siap digunakan. Enjoy editing!
+      </div>
+
+      <button class="btn" id="btnReset">Kembali ke Awal</button>
     </div>
   </div>
 
@@ -446,40 +478,99 @@
   </div>
 
   <script>
+    // Elemen Navigasi & Form
     const navMusic = document.getElementById('navMusic');
     const modalMusic = document.getElementById('modalMusic');
     const btnCloseMusic = document.getElementById('btnCloseMusic');
-    const btnSend = document.getElementById('btnSend');
+
     const emailInput = document.getElementById('email');
     const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
+    const displayEmail = document.getElementById('displayEmail');
+    const stepSubtitle = document.getElementById('stepSubtitle');
 
-    // Validasi Tanpa Alert Bawaan Browser
-    btnSend.addEventListener('click', () => {
-      const emailValue = emailInput.value.trim();
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
 
-      if (emailValue === '') {
-        successMsg.style.display = 'none';
+    const circle1 = document.getElementById('circleStep1');
+    const circle2 = document.getElementById('circleStep2');
+    const circle3 = document.getElementById('circleStep3');
+
+    const btnStep1 = document.getElementById('btnStep1');
+    const btnStep2 = document.getElementById('btnStep2');
+    const btnBackToStep1 = document.getElementById('btnBackToStep1');
+    const btnReset = document.getElementById('btnReset');
+    const navHome = document.getElementById('navHome');
+
+    function goToStep(stepNumber) {
+      step1.classList.remove('active-step');
+      step2.classList.remove('active-step');
+      step3.classList.remove('active-step');
+
+      circle1.classList.remove('active');
+      circle2.classList.remove('active');
+      circle3.classList.remove('active');
+
+      if (stepNumber === 1) {
+        step1.classList.add('active-step');
+        circle1.classList.add('active');
+        stepSubtitle.textContent = "Langkah 1: Masukkan email akun Alight Motion";
+      } else if (stepNumber === 2) {
+        step2.classList.add('active-step');
+        circle1.classList.add('active');
+        circle2.classList.add('active');
+        stepSubtitle.textContent = "Langkah 2: Buka email & klik Magic Link";
+      } else if (stepNumber === 3) {
+        step3.classList.add('active-step');
+        circle1.classList.add('active');
+        circle2.classList.add('active');
+        circle3.classList.add('active');
+        stepSubtitle.textContent = "Langkah 3: Aktivasi Selesai";
+      }
+    }
+
+    // Klik Kirim Magic Link
+    btnStep1.addEventListener('click', () => {
+      const value = emailInput.value.trim();
+      if (value === '') {
         errorMsg.style.display = 'flex';
         emailInput.style.borderColor = '#f87171';
       } else {
         errorMsg.style.display = 'none';
         emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        
-        // Tampilkan pesan sukses di dalam card
-        successMsg.textContent = '✓ Magic Link berhasil dikirim ke ' + emailValue;
-        successMsg.style.display = 'flex';
+        displayEmail.textContent = value;
+        goToStep(2);
       }
     });
 
-    // Reset notifikasi pas ngetik
     emailInput.addEventListener('input', () => {
-      errorMsg.style.display = 'none';
-      successMsg.style.display = 'none';
-      emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+      if (emailInput.value.trim() !== '') {
+        errorMsg.style.display = 'none';
+        emailInput.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+      }
     });
 
-    // Toggle Music Popup
+    // Pindah Step 2 -> Step 3
+    btnStep2.addEventListener('click', () => {
+      goToStep(3);
+    });
+
+    // Pindah Kembali Step 2 -> Step 1
+    btnBackToStep1.addEventListener('click', () => {
+      goToStep(1);
+    });
+
+    // Reset ke Step 1
+    btnReset.addEventListener('click', () => {
+      emailInput.value = '';
+      goToStep(1);
+    });
+
+    navHome.addEventListener('click', () => {
+      goToStep(1);
+    });
+
+    // Popup Spotify
     navMusic.addEventListener('click', () => {
       modalMusic.classList.remove('hidden');
     });
