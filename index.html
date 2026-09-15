@@ -649,6 +649,14 @@
       <h3 class="step-title">TEMPEL & SELESAI</h3>
       <p class="step-desc">Tempelkan link yang sudah disalin ke dalam kolom yang tersedia untuk aktivasi.</p>
     </div>
+
+    <!-- KARTU DAFTAR RIWAYAT PREMIUM TERBARU -->
+    <div class="step-card" style="opacity: 1; transform: translateY(0);">
+      <h3 class="step-title" style="text-align: center; margin-bottom: 16px;">RIWAYAT AKTIVASI TERBARU</h3>
+      <div id="recentList" style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="text-align: center; color: #94a3b8; font-size: 13px;">Memuat data...</p>
+      </div>
+    </div>
   </div>
 
   <!-- POPUP RESULT MODERN -->
@@ -713,6 +721,50 @@
     const modalSubtitle = document.getElementById('modalSubtitle');
     const btnReset = document.getElementById('btnReset');
 
+    // FUNGSI SENSOR EMAIL (contoh: alfandir@gmail.com -> alfand**@gmail.com)
+    function maskEmail(email) {
+      if (!email || !email.includes('@')) return 'user****@gmail.com';
+      const parts = email.split('@');
+      const name = parts[0];
+      const domain = parts[1];
+      
+      if (name.length <= 4) {
+        return name.substring(0, 2) + '**@' + domain;
+      }
+      return name.substring(0, 6) + '**@' + domain;
+    }
+
+    // FUNGSI LOAD LIST EMAIL PREMIUM DARI SUPABASE
+    async function loadRecentPremiumUsers() {
+      if (!db) return;
+      const container = document.getElementById('recentList');
+      if (!container) return;
+
+      try {
+        const { data, error } = await db
+          .from('premium_users')
+          .select('email, created_at')
+          .order('created_at', { ascending: false })
+          .limit(5);
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          container.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 13px;">Belum ada riwayat aktivasi.</p>';
+          return;
+        }
+
+        container.innerHTML = data.map(item => `
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 13px; color: #e2e8f0; font-family: monospace;">${maskEmail(item.email)}</span>
+            <span style="font-size: 12px; color: #4ade80; font-weight: 700; background: rgba(34, 197, 94, 0.15); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(74, 222, 128, 0.3);">premium active √</span>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error('Gagal mengambil daftar premium:', err);
+      }
+    }
+
     // FUNGSI TAMPILKAN TOTAL USER & EMAIL SUKSES DARI SUPABASE
     async function loadStats() {
       if (!db) return;
@@ -722,6 +774,9 @@
 
         const { count: countUsers } = await db.from('visitors').select('*', { count: 'exact', head: true });
         if (countUsers !== null) document.getElementById('totalUsersCount').innerText = countUsers;
+
+        // Muat juga daftar email terbaru
+        loadRecentPremiumUsers();
       } catch (e) {
         console.error('Gagal mengambil data statistik:', e);
       }
