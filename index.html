@@ -409,6 +409,42 @@
       margin-bottom: 20px;
     }
 
+    /* BAGIAN JUDUL GUIDELINE */
+    .section-title-container {
+      text-align: center;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .section-title-container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-main-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .section-main-title span {
+      color: #64748b;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 10px;
+      line-height: 1.5;
+      padding: 0 10px;
+    }
+
     /* STYLE KARTU PETUNJUK & ANIMASI SCROLL */
     .step-card {
       background: rgba(255, 255, 255, 0.04);
@@ -534,6 +570,12 @@
         <div class="spinner"></div>
         <div class="loading-text" id="loadingText">Memulai verifikasi akun...</div>
       </div>
+    </div>
+
+    <!-- JUDUL GUIDELINE DENGAN ANIMASI -->
+    <div class="section-title-container step-card">
+      <h2 class="section-main-title">EMPAT LANGKAH<br>MENUJU <span>PREMIUM.</span></h2>
+      <p class="section-subtitle">Ikuti panduan ini untuk mengaktifkan akun Alight Motion Anda tanpa kendala.</p>
     </div>
 
     <!-- KARTU PETUNJUK/STEPS DENGAN EFEK ANIMASI SCROLL -->
