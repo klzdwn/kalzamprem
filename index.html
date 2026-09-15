@@ -17,20 +17,21 @@
       min-height: 100vh;
       background: #090d16;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 40px 20px 80px 20px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Efek Bola Cahaya Background */
+    /* Efek Bola Cahaya Background (Fixed agar konsisten saat scroll) */
     .blob {
-      position: absolute;
+      position: fixed;
       border-radius: 50%;
       filter: blur(80px);
       z-index: 0;
       animation: float 10s infinite alternate ease-in-out;
+      pointer-events: none;
     }
 
     .blob-1 {
@@ -63,12 +64,20 @@
       100% { transform: translateY(-30px) scale(1.1); }
     }
 
-    /* Card Utama */
-    .glass-card {
+    /* Container Utama */
+    .main-wrapper {
       position: relative;
       z-index: 1;
       width: 100%;
       max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Card Utama */
+    .glass-card {
+      width: 100%;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -399,6 +408,70 @@
       text-transform: uppercase;
       margin-bottom: 20px;
     }
+
+    /* STYLE KARTU PETUNJUK & ANIMASI SCROLL */
+    .step-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+      /* State awal animasi scroll */
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .step-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 32px;
+      background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .step-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -407,57 +480,85 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 
-  <div class="glass-card">
-    <div class="header">
-      <h1>KALZ AM PREM</h1>
-      <p id="stepDescription">Langkah 1: Masukkan email akun Alight Motion</p>
+  <div class="main-wrapper">
+    <!-- Card Utama -->
+    <div class="glass-card">
+      <div class="header">
+        <h1>KALZ AM PREM</h1>
+        <p id="stepDescription">Langkah 1: Masukkan email akun Alight Motion</p>
+      </div>
+
+      <!-- Tracker Bulatan Angka -->
+      <div class="step-tracker">
+        <div class="step-circle active" id="circle1">1</div>
+        <div class="step-circle" id="circle2">2</div>
+        <div class="step-circle" id="circle3">3</div>
+      </div>
+
+      <!-- PAGE STEP 1: EMAIL -->
+      <div id="step1">
+        <div class="info-box">
+          Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
+        </div>
+        <div class="form-group">
+          <label for="email">Alamat Email</label>
+          <input type="email" id="email" placeholder="contoh@gmail.com" required>
+          <span class="error-text hidden" id="emailError">mohon masukan email terlebih dahulu</span>
+        </div>
+        <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
+      </div>
+
+      <!-- PAGE STEP 2: RAW MAGIC LINK -->
+      <div id="step2" class="hidden">
+        <div class="info-box">
+          Buka email kamu, tahan tombol dari Alight Motion, salin tautannya, lalu tempelkan di bawah ini.
+        </div>
+        <div class="form-group">
+          <label for="rawLink">Raw Magic Link</label>
+          <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
+          <span class="error-text hidden" id="linkError">mohon masukan link yang dikirim ke email mu</span>
+        </div>
+        <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
+      </div>
+
+      <!-- PAGE STEP 3: TOMBOL KEMBALI DI CARD -->
+      <div id="stepFinish" class="hidden">
+        <div class="info-box" style="text-align: center; border-left: none; border-top: 3px solid #22c55e;">
+          Proses telah selesai. Klik tombol di bawah untuk kembali ke tampilan awal.
+        </div>
+        <button id="btnHome" class="btn btn-success">Kembali ke Halaman Awal</button>
+      </div>
+
+      <!-- PAGE STEP LOADING BERGERAK -->
+      <div id="stepLoading" class="loading-state hidden">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loadingText">Memulai verifikasi akun...</div>
+      </div>
     </div>
 
-    <!-- Tracker Bulatan Angka -->
-    <div class="step-tracker">
-      <div class="step-circle active" id="circle1">1</div>
-      <div class="step-circle" id="circle2">2</div>
-      <div class="step-circle" id="circle3">3</div>
+    <!-- KARTU PETUNJUK/STEPS DENGAN EFEK ANIMASI SCROLL -->
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h3 class="step-title">MASUKKAN EMAIL</h3>
+      <p class="step-desc">Gunakan alamat email yang sama dengan akun Alight Motion Anda.</p>
     </div>
 
-    <!-- PAGE STEP 1: EMAIL -->
-    <div id="step1">
-      <div class="info-box">
-        Ketik email yang terhubung dengan Alight Motion kamu. Sistem akan mengirim tautan masuk (Magic Link) ke email tersebut.
-      </div>
-      <div class="form-group">
-        <label for="email">Alamat Email</label>
-        <input type="email" id="email" placeholder="contoh@gmail.com" required>
-        <span class="error-text hidden" id="emailError">mohon masukan email terlebih dahulu</span>
-      </div>
-      <button id="btnSend" class="btn btn-primary">Kirim Magic Link</button>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h3 class="step-title">PERIKSA INBOX</h3>
+      <p class="step-desc">Cari email dari Alight Creative, periksa folder Spam jika perlu.</p>
     </div>
 
-    <!-- PAGE STEP 2: RAW MAGIC LINK -->
-    <div id="step2" class="hidden">
-      <div class="info-box">
-        Buka email kamu, tahan tombol dari Alight Motion, salin tautannya, lalu tempelkan di bawah ini.
-      </div>
-      <div class="form-group">
-        <label for="rawLink">Raw Magic Link</label>
-        <input type="text" id="rawLink" placeholder="Tempel tautan dari email di sini...">
-        <span class="error-text hidden" id="linkError">mohon masukan link yang dikirim ke email mu</span>
-      </div>
-      <button id="btnProcess" class="btn btn-secondary">Proses Aktivasi Premium</button>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h3 class="step-title">SALIN LINK</h3>
+      <p class="step-desc">Tahan teks "Login to Alight Creative", lalu salin tautannya.</p>
     </div>
 
-    <!-- PAGE STEP 3: TOMBOL KEMBALI DI CARD -->
-    <div id="stepFinish" class="hidden">
-      <div class="info-box" style="text-align: center; border-left: none; border-top: 3px solid #22c55e;">
-        Proses telah selesai. Klik tombol di bawah untuk kembali ke tampilan awal.
-      </div>
-      <button id="btnHome" class="btn btn-success">Kembali ke Halaman Awal</button>
-    </div>
-
-    <!-- PAGE STEP LOADING BERGERAK -->
-    <div id="stepLoading" class="loading-state hidden">
-      <div class="spinner"></div>
-      <div class="loading-text" id="loadingText">Memulai verifikasi akun...</div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <h3 class="step-title">TEMPEL & SELESAI</h3>
+      <p class="step-desc">Tempelkan link yang sudah disalin ke dalam kolom yang tersedia untuk aktivasi.</p>
     </div>
   </div>
 
@@ -706,6 +807,20 @@
 
     // Click Tombol Kembali ke Halaman Awal dari Card Utama
     btnHome.addEventListener('click', resetToHome);
+
+    // INTERSECTION OBSERVER UNTUK ANIMASI SCROLL KARTU STEP
+    const cards = document.querySelectorAll('.step-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    cards.forEach(card => observer.observe(card));
   </script>
 </body>
 </html>
