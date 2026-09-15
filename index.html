@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KALZ AM PREM</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- SDK SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -73,6 +75,37 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+    }
+
+    /* Counter Badge / Stat Bar */
+    .stats-container {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
     }
 
     /* Card Utama */
@@ -519,6 +552,18 @@
   <div class="blob blob-3"></div>
 
   <div class="main-wrapper">
+    <!-- STATISTIK TOTAL USER & PREMIUM -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-value" id="totalUsersCount">0</div>
+        <div class="stat-label">Total Pengunjung</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalPremiumCount">0</div>
+        <div class="stat-label">Sukses Premium</div>
+      </div>
+    </div>
+
     <!-- Card Utama -->
     <div class="glass-card">
       <div class="header">
@@ -631,6 +676,11 @@
   </div>
 
   <script>
+    // INTEGRASI SUPABASE (Ganti 'PASTE_ANON_PUBLIC_KEY_DI_SINI' dengan anon key milikmu)
+    const SUPABASE_URL = 'https://dbvnetkiaycgnaiomvno.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_FwsSe0fAP0sl7mmUU-mn8A_sNgZKWtA';
+    const db = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
     const API_URL = 'https://anita-studio.netlify.app/.netlify/functions/amprem';
 
     const step1 = document.getElementById('step1');
@@ -662,6 +712,48 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalSubtitle = document.getElementById('modalSubtitle');
     const btnReset = document.getElementById('btnReset');
+
+    // FUNGSI TAMPILKAN TOTAL USER & EMAIL SUKSES DARI SUPABASE
+    async function loadStats() {
+      if (!db) return;
+      try {
+        const { count: countPrem } = await db.from('premium_users').select('*', { count: 'exact', head: true });
+        if (countPrem !== null) document.getElementById('totalPremiumCount').innerText = countPrem;
+
+        const { count: countUsers } = await db.from('visitors').select('*', { count: 'exact', head: true });
+        if (countUsers !== null) document.getElementById('totalUsersCount').innerText = countUsers;
+      } catch (e) {
+        console.error('Gagal mengambil data statistik:', e);
+      }
+    }
+
+    // CATAT VISITOR KE SUPABASE (1X PER SESI)
+    async function recordVisitor() {
+      if (!db) return;
+      try {
+        if (!sessionStorage.getItem('visited')) {
+          await db.from('visitors').insert([{}]);
+          sessionStorage.setItem('visited', 'true');
+        }
+        loadStats();
+      } catch (e) {
+        console.error('Gagal mencatat visitor:', e);
+      }
+    }
+
+    // SIMPAN EMAIL YANG BERHASIL PREM KE SUPABASE
+    async function recordSuccessPremium(email) {
+      if (!db) return;
+      try {
+        await db.from('premium_users').insert([{ email: email }]);
+        loadStats();
+      } catch (e) {
+        console.error('Gagal menyimpan email premium:', e);
+      }
+    }
+
+    // Jalankan pencatatan visitor saat website pertama dimuat
+    recordVisitor();
 
     // Menghilangkan pesan error saat user mengetik
     emailInput.addEventListener('input', () => {
@@ -810,6 +902,9 @@
           circle3.classList.remove('active');
           circle3.classList.add('completed');
           stepDescription.innerText = 'Selamat! Akun kamu sudah Premium';
+
+          // SIMPAN DATA EMAIL BERHASIL KE SUPABASE
+          recordSuccessPremium(email);
 
           // POPUP SUKSES MODERN
           modalIconBox.className = 'icon-box success';
